@@ -45,17 +45,17 @@ public class GameController : MonoBehaviour
 
 	public void HandlePlayerInput(int item)
 	{
-		UseableItem playerChoice = UseableItem.None;
+		UseableItem playerChoice = UseableItem.Rock;
 
 		switch (item)
 		{
-			case 1:
+			case 0:
 				playerChoice = UseableItem.Rock;
 				break;
-			case 2:
+			case 1:
 				playerChoice = UseableItem.Paper;
 				break;
-			case 3:
+			case 2:
 				playerChoice = UseableItem.Scissors;
 				break;
 		}
