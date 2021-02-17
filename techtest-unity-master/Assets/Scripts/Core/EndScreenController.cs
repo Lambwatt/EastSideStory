@@ -33,7 +33,7 @@ public class EndScreenController : MonoBehaviour
 
     IEnumerator ShowResults()
     {
-        bool done = false;
+        bool done = _iterator == null;
         while (!done)
         {
             yield return new WaitForSeconds(0.1f);
@@ -61,12 +61,12 @@ public class EndScreenController : MonoBehaviour
             else
             {
                 done = true;
-                //Handle fancy stuff at the end
-
-                ReplayButton.interactable = true;
-                QuitButton.interactable = true;
             }
         }
+
+        //Handle fancy stuff at the end
+        ReplayButton.interactable = true;
+        QuitButton.interactable = true;
     }
 
     public void Quit()

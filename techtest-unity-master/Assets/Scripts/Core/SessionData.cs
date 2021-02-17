@@ -10,6 +10,7 @@ public class SessionData
     public LinkedList<GameUpdate> Updates {get; private set;}
 
     public int InitialCoins { get; private set; } = 50;
+    public MoveCounter Moves { get; private set; }
 
     private SessionData()
     {
@@ -34,7 +35,7 @@ public class SessionData
         InitialCoins = Player.GetCoins();
         Updates = new LinkedList<GameUpdate>();
         //Reset anything else
-
+        Moves = new MoveCounter();
         return _instance;
     }
 

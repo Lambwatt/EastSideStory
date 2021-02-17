@@ -58,6 +58,7 @@ public class PlayerLoadController : MonoBehaviour
 
             entry.Initialize(player, OnClickProfile);
         }
+        ProfileList.GetComponent<RectTransform>().sizeDelta = new Vector2(ProfileList.GetComponent<RectTransform>().sizeDelta.x, profilePrefab.GetComponent<RectTransform>().sizeDelta.y * _playerList.players.Count); //This only runs once at the start, so no sweating the getComponents
     }
 
     void OnClickProfile(SelectableProfile profile)
