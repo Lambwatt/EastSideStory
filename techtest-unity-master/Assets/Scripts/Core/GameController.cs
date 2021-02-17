@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 	public Text enemyHand;
 
     public PlayerLoadController playerLoadController;
+    public EndScreenController endScreenController;
     public BetController betController;
 
 	private Text _nameLabel;
@@ -93,17 +94,15 @@ public class GameController : MonoBehaviour
 		enemyHand.text = DisplayResultAsText(gameUpdateData.resultOpponent);
 
 		_session.Player.ChangeCoinAmount(gameUpdateData.coinsAmountChange);
+        _session.AddGameUpdate(gameUpdateData);
+
         betController.UpdateUI();
 	}
 
     public void OnRetire()
     {
         _session.SavePlayerData();
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        endScreenController.gameObject.SetActive(true);
     }
 
 	private string DisplayResultAsText (UseableItem result)

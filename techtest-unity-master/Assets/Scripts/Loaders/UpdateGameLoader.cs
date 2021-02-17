@@ -35,7 +35,7 @@ public class UpdateGameLoader
         GameUpdate gameUpdate = new GameUpdate();
 
         gameUpdate.resultPlayer = _choice;
-        gameUpdate.resultPlayer = opponentHand;
+        gameUpdate.resultOpponent = opponentHand;
 
         gameUpdate.drawResult = ResultAnalyzer.GetResultState(playerHand, opponentHand);
 
