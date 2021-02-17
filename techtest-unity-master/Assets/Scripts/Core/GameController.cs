@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
 	public Text playerHand;
 	public Text enemyHand;
 
+    public BetController betController;
+
 	private Text _nameLabel;
 	private Text _moneyLabel;
 
@@ -60,12 +62,12 @@ public class GameController : MonoBehaviour
 				break;
 		}
 
-		UpdateGame(playerChoice);
+        UpdateGame(playerChoice, betController.GetBet());
 	}
 
-	private void UpdateGame(UseableItem playerChoice)
+	private void UpdateGame(UseableItem playerChoice, int bet)
 	{
-		UpdateGameLoader updateGameLoader = new UpdateGameLoader(playerChoice);
+		UpdateGameLoader updateGameLoader = new UpdateGameLoader(playerChoice, bet);
 		updateGameLoader.OnLoaded += OnGameUpdated;
 		updateGameLoader.load();
 	}
@@ -76,6 +78,7 @@ public class GameController : MonoBehaviour
 		enemyHand.text = DisplayResultAsText((UseableItem)gameUpdateData["resultOpponent"]);
 
 		_session.Player.ChangeCoinAmount((int)gameUpdateData["coinsAmountChange"]);
+        betController.UpdateUI();
 	}
 
 	private string DisplayResultAsText (UseableItem result)

@@ -8,17 +8,20 @@ public class UpdateGameLoader
 	public event OnLoadedAction OnLoaded;
 
 	private UseableItem _choice;
+    private int _bet;
 
-	public UpdateGameLoader(UseableItem playerChoice)
+	public UpdateGameLoader(UseableItem playerChoice, int playerBet)
 	{
 		_choice = playerChoice;
-	}
+        _bet = playerBet;
+    }
 
 	public void load()
 	{
-		UseableItem opponentHand = (UseableItem)UnityEngine.Random.Range(0, Enum.GetValues(typeof(UseableItem)).Length);
+        UseableItem opponentHand = UseableItem.Rock;//(UseableItem)UnityEngine.Random.Range(0, Enum.GetValues(typeof(UseableItem)).Length);
 
-		Hashtable mockGameUpdate = new Hashtable();
+
+        Hashtable mockGameUpdate = new Hashtable();
 		mockGameUpdate["resultPlayer"] = _choice;
 		mockGameUpdate["resultOpponent"] = opponentHand;
 		mockGameUpdate["coinsAmountChange"] = GetCoinsAmount(_choice, opponentHand);
@@ -32,11 +35,11 @@ public class UpdateGameLoader
 
 		if (drawResult.Equals (Result.Won))
 		{
-			return 10;
+			return _bet;
 		}
 		else if (drawResult.Equals (Result.Lost))
 		{
-			return -10;
+			return -_bet;
 		}
 		else
 		{

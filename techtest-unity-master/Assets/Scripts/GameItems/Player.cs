@@ -4,7 +4,9 @@ using System;
 
 public class Player
 {
-	private int _userId;
+    const int MAX_MONEY = 999999999;
+
+    private int _userId;
 	private string _name;
 	private int _coins;
 
@@ -33,5 +35,6 @@ public class Player
 	public void ChangeCoinAmount(int amount)
 	{
 		_coins += amount;
+        _coins = Mathf.Clamp(_coins, -MAX_MONEY, MAX_MONEY);
 	}
 }

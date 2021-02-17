@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BetController : MonoBehaviour
 {
-    const int MAX_MONEY = 999999999;
+    const int MAX_FREE_BET = 500;
 
     int _bet = 10;
 
@@ -22,25 +22,22 @@ public class BetController : MonoBehaviour
         BetField.SetTextWithoutNotify("10");
     }
 
-    //based on money and bet, enable or disable up or down buttons. 
-    void UpdateUI()
+    //based on money and bet, clamp bet to limits and enable or disable buttons. 
+    public void UpdateUI()
     {
-        //clampBet();
-
         int money = SessionData.Instance.GetMoney();
 
         bool canIncrease;
-        if (money > 500)
+        if (money > MAX_FREE_BET)
         {
-            _bet = Mathf.Max(Mathf.Min(_bet, money), 1);
+            _bet = Mathf.Clamp(_bet, 1, money);
             canIncrease = _bet < money;
         }
         else
         {
-            _bet = Mathf.Max(Mathf.Min(_bet, 500), 1);
-            canIncrease = _bet < 500;
+            _bet = Mathf.Clamp(_bet, 1, MAX_FREE_BET);
+            canIncrease = _bet < MAX_FREE_BET;
         }
-
         MaxButton.interactable = canIncrease;
         UpButton.interactable = canIncrease;
 
@@ -86,5 +83,10 @@ public class BetController : MonoBehaviour
         //Bet 1
         _bet = 1;
         UpdateUI();
+    }
+
+    public int GetBet()
+    {
+        return _bet;
     }
 }
