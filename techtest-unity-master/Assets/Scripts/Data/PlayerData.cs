@@ -9,9 +9,9 @@ public struct PlayerData
     public string name;
     public int coins;
 
-    public PlayerData(int userId, string name)
+    public PlayerData(string name)
     {
-        this.userId = userId;
+        this.userId = -1;
         this.name = name;
         coins = 50;
     }

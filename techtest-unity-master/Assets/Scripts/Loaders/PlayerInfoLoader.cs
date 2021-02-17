@@ -4,19 +4,19 @@ using System;
 
 public class PlayerInfoLoader
 {
-	public delegate void OnLoadedAction(PlayerData playerData);
-	public event OnLoadedAction OnLoaded;
+	//public delegate void OnLoadedAction(PlayerData playerData);
+	//public event OnLoadedAction OnLoaded;
 
-	public void load()
-	{
-        PlayerDataList playersTestInput = new PlayerDataList();
+	//public void load()
+	//{
+ //       PlayerDataList playersTestInput = new PlayerDataList();
 
-        playersTestInput.AddPlayer("Player 1"); 
-        //playersTestInput.AddPlayer("Player 2");
+ //       //playersTestInput.AddPlayer("Player 1"); 
+ //       //playersTestInput.AddPlayer("Player 2");
 
-        //string testString = JsonUtility.ToJson(playersTestInput);
-        //PlayerDataList playersTestOutput = JsonUtility.FromJson<PlayerDataList>(testString);
+ //       //string testString = JsonUtility.ToJson(playersTestInput);
+ //       //PlayerDataList playersTestOutput = JsonUtility.FromJson<PlayerDataList>(testString);
 
-        OnLoaded(playersTestInput.players[0]);
-	}
+ //       OnLoaded(playersTestInput.players[0]);
+	//}
 }

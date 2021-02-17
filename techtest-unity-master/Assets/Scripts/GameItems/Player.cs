@@ -5,8 +5,6 @@ using System;
 [Serializable]
 public class Player
 {
-   
-
     private int _userId;
 	private string _name;
 	private int _coins;

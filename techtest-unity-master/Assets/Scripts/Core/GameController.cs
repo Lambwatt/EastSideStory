@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 	public Text playerHand;
 	public Text enemyHand;
 
+    public IntroController playerLoadController;
     public BetController betController;
 
 	private Text _nameLabel;
@@ -24,23 +25,37 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
-		PlayerInfoLoader playerInfoLoader = new PlayerInfoLoader();
-		playerInfoLoader.OnLoaded += OnPlayerInfoLoaded;
-		playerInfoLoader.load();
+		//PlayerInfoLoader playerInfoLoader = new PlayerInfoLoader();
+       
+
+        //Open intro window
+        playerLoadController.gameObject.SetActive(true);
+        playerLoadController.OnLoaded += OnPlayerInfoLoaded;
+
+        Debug.Log("Pause here");
+        //playerInfoLoader.load();
 	}
 
-	void Update()
+	IEnumerator CallUpdate()
 	{
-		UpdateHud();
+        while (true)
+        {
+            //This almost never needs to happen. Maybe move it out of the update/coroutine
+            yield return null;
+            UpdateHud();
+        }
 	}
 
 	public void OnPlayerInfoLoaded(PlayerData player)
 	{
 		_session = SessionData.Instance.intialize(new Player(player));
+        playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
+        StartCoroutine(CallUpdate());
 	}
 
 	public void UpdateHud()
 	{
+        
 		_nameLabel.text = "Name: " + _session.Player.GetName();
 		_moneyLabel.text = "Money: $" + _session.Player.GetCoins().ToString();
 	}
