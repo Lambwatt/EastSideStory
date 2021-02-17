@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
 	private Text _nameLabel;
 	private Text _moneyLabel;
 
-	private Player _player;
+	private SessionData _session;
 
 	void Awake()
 	{
@@ -34,13 +34,13 @@ public class GameController : MonoBehaviour
 
 	public void OnPlayerInfoLoaded(Hashtable playerData)
 	{
-		_player = new Player(playerData);
+		_session = SessionData.Instance.intialize(new Player(playerData));
 	}
 
 	public void UpdateHud()
 	{
-		_nameLabel.text = "Name: " + _player.GetName();
-		_moneyLabel.text = "Money: $" + _player.GetCoins().ToString();
+		_nameLabel.text = "Name: " + _session.Player.GetName();
+		_moneyLabel.text = "Money: $" + _session.Player.GetCoins().ToString();
 	}
 
 	public void HandlePlayerInput(int item)
@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour
 		playerHand.text = DisplayResultAsText((UseableItem)gameUpdateData["resultPlayer"]);
 		enemyHand.text = DisplayResultAsText((UseableItem)gameUpdateData["resultOpponent"]);
 
-		_player.ChangeCoinAmount((int)gameUpdateData["coinsAmountChange"]);
+		_session.Player.ChangeCoinAmount((int)gameUpdateData["coinsAmountChange"]);
 	}
 
 	private string DisplayResultAsText (UseableItem result)
