@@ -51,6 +51,7 @@ public class SessionData
 
     public void AddGameUpdate(GameUpdate update)
     {
+        Moves.AddMove(update.resultPlayer);
         Updates.AddLast(update);
     }
 }
