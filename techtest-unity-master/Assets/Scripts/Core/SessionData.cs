@@ -31,6 +31,11 @@ public class SessionData
         return _instance;
     }
 
+    public void SavePlayerData()
+    {
+        PlayerSaveManager.UpdateData(Player.GetData()); 
+    }
+
     public int GetMoney()
     {
         return Player.GetCoins();

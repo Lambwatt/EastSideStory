@@ -96,6 +96,16 @@ public class GameController : MonoBehaviour
         betController.UpdateUI();
 	}
 
+    public void OnRetire()
+    {
+        _session.SavePlayerData();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
 	private string DisplayResultAsText (UseableItem result)
 	{
 		switch (result)

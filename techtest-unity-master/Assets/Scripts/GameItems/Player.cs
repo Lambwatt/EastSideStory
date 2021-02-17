@@ -31,6 +31,11 @@ public class Player
 		return _coins;
 	}
 
+    public PlayerData GetData()
+    {
+        return new PlayerData(_userId, _name, _coins);
+    }
+
 	public void ChangeCoinAmount(int amount)
 	{
 		_coins += amount;

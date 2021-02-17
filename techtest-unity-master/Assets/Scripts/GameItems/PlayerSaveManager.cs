@@ -18,7 +18,8 @@ public class PlayerSaveManager
 
     public static void UpdateData(PlayerData playerData)
     {
-        PlayerDataList playerDataList = JsonUtility.FromJson<PlayerDataList>(PlayerPrefs.GetString(PLAYER_KEY));
+
+        PlayerDataList playerDataList = HasData() ? JsonUtility.FromJson<PlayerDataList>(PlayerPrefs.GetString(PLAYER_KEY)) : new PlayerDataList();
         playerDataList.UpdatePlayer(playerData);
         PlayerPrefs.SetString(PLAYER_KEY, JsonUtility.ToJson(playerDataList));
     }

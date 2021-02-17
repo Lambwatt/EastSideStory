@@ -62,11 +62,11 @@ public class IntroController : MonoBehaviour
 
     void OnClickProfile(SelectableProfile profile)
     {
-        if (activeProfile != null)
+        if (activeProfile != null && activeProfile!=profile)
             activeProfile.Deselect();
 
         activeProfile = profile;
-        
+        LoadButton.interactable = true;
     }
 
     public void Load()
