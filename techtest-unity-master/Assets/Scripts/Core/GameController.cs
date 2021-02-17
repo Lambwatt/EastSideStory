@@ -34,9 +34,9 @@ public class GameController : MonoBehaviour
 		UpdateHud();
 	}
 
-	public void OnPlayerInfoLoaded(Hashtable playerData)
+	public void OnPlayerInfoLoaded(PlayerData player)
 	{
-		_session = SessionData.Instance.intialize(new Player(playerData));
+		_session = SessionData.Instance.intialize(new Player(player));
 	}
 
 	public void UpdateHud()

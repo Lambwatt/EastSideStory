@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+[Serializable]
 public class Player
 {
     const int MAX_MONEY = 999999999;
@@ -10,11 +11,11 @@ public class Player
 	private string _name;
 	private int _coins;
 
-	public Player(Hashtable playerData)
+	public Player(PlayerData playerData)
 	{
-		_userId = (int)playerData["userId"];
-		_name = playerData["name"].ToString (); 
-		_coins = (int)playerData["coins"];
+		_userId = playerData.userId;
+		_name = playerData.name; 
+		_coins = playerData.coins;
 	}
 	
 	public int GetUserId()

@@ -4,7 +4,7 @@ using System;
 
 public class PlayerInfoLoader
 {
-	public delegate void OnLoadedAction(Hashtable playerData);
+	public delegate void OnLoadedAction(PlayerData playerData);
 	public event OnLoadedAction OnLoaded;
 
 	public void load()
@@ -14,6 +14,14 @@ public class PlayerInfoLoader
 		mockPlayerData["name"] = "Player 1";
 		mockPlayerData["coins"] = 50;
 
-		OnLoaded(mockPlayerData);
+        PlayerDataList playersTestInput = new PlayerDataList();
+
+        playersTestInput.AddPlayer("Player 1"); 
+        //playersTestInput.AddPlayer("Player 2");
+
+        //string testString = JsonUtility.ToJson(playersTestInput);
+        //PlayerDataList playersTestOutput = JsonUtility.FromJson<PlayerDataList>(testString);
+
+        OnLoaded(playersTestInput.players[0]);
 	}
 }
