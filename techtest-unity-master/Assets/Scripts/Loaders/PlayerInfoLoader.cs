@@ -9,11 +9,6 @@ public class PlayerInfoLoader
 
 	public void load()
 	{
-		Hashtable mockPlayerData = new Hashtable();
-		mockPlayerData["userId"] = 1;
-		mockPlayerData["name"] = "Player 1";
-		mockPlayerData["coins"] = 50;
-
         PlayerDataList playersTestInput = new PlayerDataList();
 
         playersTestInput.AddPlayer("Player 1"); 
