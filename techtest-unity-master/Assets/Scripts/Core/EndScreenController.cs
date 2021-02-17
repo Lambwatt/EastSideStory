@@ -12,7 +12,7 @@ public class EndScreenController : MonoBehaviour
     public Button QuitButton;
 
     int _money;
-    bool _done = false;
+    
     LinkedListNode<GameUpdate> _iterator;
 
     public delegate void OnReplayAction();
@@ -33,7 +33,8 @@ public class EndScreenController : MonoBehaviour
 
     IEnumerator ShowResults()
     {
-        while (!_done)
+        bool done = false;
+        while (!done)
         {
             yield return new WaitForSeconds(0.1f);
             GameUpdate currentUpdate = _iterator.Value;
@@ -59,7 +60,7 @@ public class EndScreenController : MonoBehaviour
             }
             else
             {
-                _done = true;
+                done = true;
                 //Handle fancy stuff at the end
 
                 ReplayButton.interactable = true;

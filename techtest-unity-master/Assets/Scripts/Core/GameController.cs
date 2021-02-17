@@ -26,16 +26,15 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
-		//PlayerInfoLoader playerInfoLoader = new PlayerInfoLoader();
-       
+        //PlayerInfoLoader playerInfoLoader = new PlayerInfoLoader();
+
 
         //Open intro window
-        playerLoadController.gameObject.SetActive(true);
-        playerLoadController.OnLoaded += OnPlayerInfoLoaded;
+        LoadPlayer();
 
-        Debug.Log("Pause here");
+        //Debug.Log("Pause here");
         //playerInfoLoader.load();
-	}
+    }
 
 	IEnumerator CallUpdate()
 	{
@@ -60,6 +59,12 @@ public class GameController : MonoBehaviour
 		_nameLabel.text = "Name: " + _session.Player.GetName();
 		_moneyLabel.text = "Money: $" + _session.Player.GetCoins().ToString();
 	}
+
+    private void LoadPlayer()
+    {
+        playerLoadController.gameObject.SetActive(true);
+        playerLoadController.OnLoaded += OnPlayerInfoLoaded;
+    }
 
 	public void HandlePlayerInput(int item)
 	{
@@ -99,9 +104,16 @@ public class GameController : MonoBehaviour
         betController.UpdateUI();
 	}
 
+    public void HandleRestart()
+    {
+        endScreenController.OnReplay -= HandleRestart;
+        LoadPlayer();
+    }
+
     public void OnRetire()
     {
         _session.SavePlayerData();
+        endScreenController.OnReplay += HandleRestart;
         endScreenController.gameObject.SetActive(true);
     }
 

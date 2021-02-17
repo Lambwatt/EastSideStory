@@ -14,7 +14,6 @@ public class SessionData
     private SessionData()
     {
         //intialize();
-        Updates = new LinkedList<GameUpdate>();
     }
 
     public static SessionData Instance
@@ -33,6 +32,9 @@ public class SessionData
     {
         Player = p;
         InitialCoins = Player.GetCoins();
+        Updates = new LinkedList<GameUpdate>();
+        //Reset anything else
+
         return _instance;
     }
 

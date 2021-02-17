@@ -20,12 +20,6 @@ public class UpdateGameLoader
 	{
         UseableItem opponentHand = UseableItem.Rock;//(UseableItem)UnityEngine.Random.Range(0, Enum.GetValues(typeof(UseableItem)).Length);
 
-
-  //      Hashtable mockGameUpdate = new Hashtable();
-		//mockGameUpdate["resultPlayer"] = _choice;
-		//mockGameUpdate["resultOpponent"] = opponentHand;
-		//mockGameUpdate["coinsAmountChange"] = GetCoinsAmount(_choice, opponentHand);
-
         GameUpdate gameUpdate = HandleDraw(_choice, opponentHand);
 		OnLoaded(gameUpdate);
 	}

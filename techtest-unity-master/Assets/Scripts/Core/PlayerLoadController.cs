@@ -43,7 +43,7 @@ public class PlayerLoadController : MonoBehaviour
     public void CreateNewPlayer()
     {
         OnLoaded(new PlayerData(Name.text));
-        gameObject.SetActive(false);
+        Close();
     }
 
     void PopulateProfiles()
@@ -72,6 +72,22 @@ public class PlayerLoadController : MonoBehaviour
     public void Load()
     {
         OnLoaded(activeProfile.GetPlayer());
+        Close();
+    }
+
+    void Close()
+    {
+        CleanUpData();
         gameObject.SetActive(false);
+    }
+
+    void CleanUpData()
+    {
+        Name.SetTextWithoutNotify("");
+        for(int i = ProfileList.childCount-1; i>=0; i--)
+        {
+            Destroy(ProfileList.GetChild(i).gameObject);
+        }
+        ProfileList.DetachChildren();
     }
 }
