@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 	public Text playerHand;
 	public Text enemyHand;
 
-    public IntroController playerLoadController;
+    public PlayerLoadController playerLoadController;
     public BetController betController;
 
 	private Text _nameLabel;
