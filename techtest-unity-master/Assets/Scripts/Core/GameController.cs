@@ -72,12 +72,12 @@ public class GameController : MonoBehaviour
 		updateGameLoader.load();
 	}
 
-	public void OnGameUpdated(Hashtable gameUpdateData)
+	public void OnGameUpdated(GameUpdate gameUpdateData)
 	{
-		playerHand.text = DisplayResultAsText((UseableItem)gameUpdateData["resultPlayer"]);
-		enemyHand.text = DisplayResultAsText((UseableItem)gameUpdateData["resultOpponent"]);
+		playerHand.text = DisplayResultAsText(gameUpdateData.resultPlayer);
+		enemyHand.text = DisplayResultAsText(gameUpdateData.resultOpponent);
 
-		_session.Player.ChangeCoinAmount((int)gameUpdateData["coinsAmountChange"]);
+		_session.Player.ChangeCoinAmount(gameUpdateData.coinsAmountChange);
         betController.UpdateUI();
 	}
 

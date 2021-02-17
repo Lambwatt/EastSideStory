@@ -4,7 +4,7 @@ using System;
 
 public class UpdateGameLoader
 {
-	public delegate void OnLoadedAction(Hashtable gameUpdateData);
+	public delegate void OnLoadedAction(GameUpdate gameUpdateData);
 	public event OnLoadedAction OnLoaded;
 
 	private UseableItem _choice;
@@ -21,31 +21,37 @@ public class UpdateGameLoader
         UseableItem opponentHand = UseableItem.Rock;//(UseableItem)UnityEngine.Random.Range(0, Enum.GetValues(typeof(UseableItem)).Length);
 
 
-        Hashtable mockGameUpdate = new Hashtable();
-		mockGameUpdate["resultPlayer"] = _choice;
-		mockGameUpdate["resultOpponent"] = opponentHand;
-		mockGameUpdate["coinsAmountChange"] = GetCoinsAmount(_choice, opponentHand);
-		
-		OnLoaded(mockGameUpdate);
+  //      Hashtable mockGameUpdate = new Hashtable();
+		//mockGameUpdate["resultPlayer"] = _choice;
+		//mockGameUpdate["resultOpponent"] = opponentHand;
+		//mockGameUpdate["coinsAmountChange"] = GetCoinsAmount(_choice, opponentHand);
+
+        GameUpdate gameUpdate = HandleDraw(_choice, opponentHand);
+		OnLoaded(gameUpdate);
 	}
 
-	private int GetCoinsAmount (UseableItem playerHand, UseableItem opponentHand)
+	private GameUpdate HandleDraw (UseableItem playerHand, UseableItem opponentHand)
 	{
-		Result drawResult = ResultAnalyzer.GetResultState(playerHand, opponentHand);
+        GameUpdate gameUpdate = new GameUpdate();
 
-		if (drawResult.Equals (Result.Won))
+        gameUpdate.resultPlayer = _choice;
+        gameUpdate.resultPlayer = opponentHand;
+
+        gameUpdate.drawResult = ResultAnalyzer.GetResultState(playerHand, opponentHand);
+
+		if (gameUpdate.drawResult.Equals (Result.Won))
 		{
-			return _bet;
+            gameUpdate.coinsAmountChange = SessionData.Instance.GetMoney() + _bet < Constants.MAX_MONEY ? _bet : Constants.MAX_MONEY - SessionData.Instance.GetMoney();
 		}
-		else if (drawResult.Equals (Result.Lost))
+		else if (gameUpdate.drawResult.Equals (Result.Lost))
 		{
-			return -_bet;
+            gameUpdate.coinsAmountChange = SessionData.Instance.GetMoney() - _bet > -Constants.MAX_MONEY ? -_bet : - Constants.MAX_MONEY - SessionData.Instance.GetMoney();
 		}
 		else
 		{
-			return 0;
+            gameUpdate.coinsAmountChange = 0;
 		}
 
-		return 0;
+		return gameUpdate;
 	}
 }

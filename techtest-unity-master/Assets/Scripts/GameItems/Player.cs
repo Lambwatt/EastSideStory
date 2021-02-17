@@ -5,7 +5,7 @@ using System;
 [Serializable]
 public class Player
 {
-    const int MAX_MONEY = 999999999;
+   
 
     private int _userId;
 	private string _name;
@@ -36,6 +36,6 @@ public class Player
 	public void ChangeCoinAmount(int amount)
 	{
 		_coins += amount;
-        _coins = Mathf.Clamp(_coins, -MAX_MONEY, MAX_MONEY);
+        _coins = Mathf.Clamp(_coins, -Constants.MAX_MONEY, Constants.MAX_MONEY);
 	}
 }
