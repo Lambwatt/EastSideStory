@@ -52,6 +52,7 @@ public class TrumpCustomStrat : IStrategy
             if(r == Result.Lost)
             {
                 _favourite = (UseableItem)((AIFunctions.GetLastPlayerMove() + Constants.WINNING_OFFSET)%3);
+                _specialTauntReady = true;
                 _specialTaunt = "I played " + _favourite + ". I won. It was the best win! No one thought I could do it. None of them played " + _favourite + ". Only Trump!";
                 _stage = 1;
             }

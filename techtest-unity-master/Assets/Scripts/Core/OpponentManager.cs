@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class OpponentManager : MonoBehaviour
 {
     [SerializeField] Image Portrait;
-    [SerializeField] Text Speech;
+    [SerializeField] DialogManager Speech;
     [SerializeField] Text Name;
 
     [SerializeField] List<Personality> Personas;
@@ -19,10 +19,10 @@ public class OpponentManager : MonoBehaviour
     {
         _factory = new OpponentFactory(Personas);
         ChooseOpponent();
-        Speech.text = "";
+        Speech.Clear();
         PlayEnterAnimation(() =>
         {
-            Speech.text = _activeOpponent.GetIntro();
+            Speech.PostDialog(_activeOpponent.GetIntro());
         });
     }
 
@@ -42,13 +42,14 @@ public class OpponentManager : MonoBehaviour
     {
         if (_activeOpponent.isDoneAfterResult(result))
         {
-            Speech.text = _activeOpponent.GetOutro();
-            PlayExitAnimation(()=> { SwapOpponents(OnOpponentSettled); });
+            Speech.PostDialog( _activeOpponent.GetOutro() ,()=>{
+                PlayExitAnimation(() => { SwapOpponents(OnOpponentSettled); });
+            });
         }
         else
         {
             if (_activeOpponent.hasSpecialTaunt())
-                Speech.text = _activeOpponent.getSpecialTaunt();
+                Speech.PostDialog(_activeOpponent.getSpecialTaunt());
             else
                 Taunt(result);
 
@@ -60,10 +61,12 @@ public class OpponentManager : MonoBehaviour
     {
         //yield return new WaitForSeconds(2);
         ChooseOpponent();
-        Speech.text = "";
+        Speech.Clear();
         PlayEnterAnimation(() => {
-            Speech.text = _activeOpponent.GetIntro();
-            OnSwapComplete();
+            Speech.PostDialog(_activeOpponent.GetIntro(), () =>
+            {
+                OnSwapComplete();
+            });
         });
         
     }
@@ -75,7 +78,7 @@ public class OpponentManager : MonoBehaviour
             string taunt = _activeOpponent.GetTaunt(r);
             if (taunt != null && taunt.Length > 0)
             {
-                Speech.text = taunt;
+                Speech.PostDialog(taunt);
             }
         }
     }
