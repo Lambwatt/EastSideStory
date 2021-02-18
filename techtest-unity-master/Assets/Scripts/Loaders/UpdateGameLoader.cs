@@ -7,31 +7,33 @@ public class UpdateGameLoader
 	public delegate void OnLoadedAction(GameUpdate gameUpdateData);
 	public event OnLoadedAction OnLoaded;
 
-	private UseableItem _choice;
+	private UseableItem _playerChoice;
+    private UseableItem _opponentChoice;
     private int _bet;
 
-	public UpdateGameLoader(UseableItem playerChoice, int playerBet)
+	public UpdateGameLoader(UseableItem playerChoice, UseableItem opponentChoice, int playerBet)
 	{
-		_choice = playerChoice;
+		_playerChoice = playerChoice;
+        _opponentChoice = opponentChoice;
         _bet = playerBet;
     }
 
 	public void load()
 	{
-        UseableItem opponentHand = UseableItem.Rock;//(UseableItem)UnityEngine.Random.Range(0, Enum.GetValues(typeof(UseableItem)).Length);
+        //UseableItem opponentHand = UseableItem.Rock;//(UseableItem)UnityEngine.Random.Range(0, Enum.GetValues(typeof(UseableItem)).Length);
 
-        GameUpdate gameUpdate = HandleDraw(_choice, opponentHand);
+        GameUpdate gameUpdate = HandleDraw(_playerChoice, _opponentChoice);
 		OnLoaded(gameUpdate);
 	}
 
-	private GameUpdate HandleDraw (UseableItem playerHand, UseableItem opponentHand)
+	private GameUpdate HandleDraw (UseableItem playerHand, UseableItem _opponentChoice)
 	{
         GameUpdate gameUpdate = new GameUpdate();
 
-        gameUpdate.resultPlayer = _choice;
-        gameUpdate.resultOpponent = opponentHand;
+        gameUpdate.resultPlayer = _playerChoice;
+        gameUpdate.resultOpponent = _opponentChoice;
 
-        gameUpdate.drawResult = ResultAnalyzer.GetResultState(playerHand, opponentHand);
+        gameUpdate.drawResult = ResultAnalyzer.GetResultState(playerHand, _opponentChoice);
 
 		if (gameUpdate.drawResult.Equals (Result.Won))
 		{

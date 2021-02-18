@@ -12,6 +12,9 @@ public class GameController : MonoBehaviour
     public PlayerLoadController playerLoadController;
     public EndScreenController endScreenController;
     public BetController betController;
+    public OpponentManager opponentManager;
+
+    public Button[] ProgressionButtons;
 
 	private Text _nameLabel;
 	private Text _moneyLabel;
@@ -27,7 +30,6 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
         //PlayerInfoLoader playerInfoLoader = new PlayerInfoLoader();
-
 
         //Open intro window
         LoadPlayer();
@@ -49,6 +51,7 @@ public class GameController : MonoBehaviour
 	public void OnPlayerInfoLoaded(PlayerData player)
 	{
 		_session = SessionData.Instance.intialize(new Player(player));
+        opponentManager.intialize();
         playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
         StartCoroutine(CallUpdate());
 	}
@@ -83,12 +86,12 @@ public class GameController : MonoBehaviour
 				break;
 		}
 
-        UpdateGame(playerChoice, betController.GetBet());
+        UpdateGame(playerChoice, opponentManager.GetHand(), betController.GetBet());
 	}
 
-	private void UpdateGame(UseableItem playerChoice, int bet)
+	private void UpdateGame(UseableItem playerChoice, UseableItem opponentChoice, int bet)
 	{
-		UpdateGameLoader updateGameLoader = new UpdateGameLoader(playerChoice, bet);
+		UpdateGameLoader updateGameLoader = new UpdateGameLoader(playerChoice, opponentChoice, bet);
 		updateGameLoader.OnLoaded += OnGameUpdated;
 		updateGameLoader.load();
 	}
@@ -101,8 +104,29 @@ public class GameController : MonoBehaviour
 		_session.Player.ChangeCoinAmount(gameUpdateData.coinsAmountChange);
         _session.AddGameUpdate(gameUpdateData);
 
+        DisableControl();
+        opponentManager.HandleResult(gameUpdateData.drawResult, ReturnControl);
+
         betController.UpdateUI();
 	}
+
+    public void DisableControl()
+    {
+        SetProgressionButtons(false);
+    }
+
+    public void ReturnControl()
+    {
+        SetProgressionButtons(true);
+    }
+
+    public void SetProgressionButtons(bool status)
+    {
+        for(int i = 0; i<ProgressionButtons.Length; i++)
+        {
+            ProgressionButtons[i].interactable = status;
+        }
+    }
 
     public void HandleRestart()
     {
