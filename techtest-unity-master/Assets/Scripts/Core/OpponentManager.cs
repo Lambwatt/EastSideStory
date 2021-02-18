@@ -43,6 +43,7 @@ public class OpponentManager : MonoBehaviour
         }
         else
         {
+            Taunt(result);
             OnOpponentSettled();
         } 
     }
@@ -53,5 +54,17 @@ public class OpponentManager : MonoBehaviour
         ChooseOpponent();
         Speech.text = _activeOpponent.GetIntro();
         OnSwapComplete();
+    }
+
+    void Taunt(Result r)
+    {
+        if (Random.Range(0, 2) == 0)
+        {
+            string taunt = _activeOpponent.GetTaunt(r);
+            if (taunt != null && taunt.Length > 0)
+            {
+                Speech.text = taunt;
+            }
+        }
     }
 }
