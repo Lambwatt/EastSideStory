@@ -46,6 +46,10 @@ public class OpponentFactory
     {
         switch (key)
         {
+            case "VIZZINI":
+                return new VizziniCustomStrat();
+            case "TRUMP":
+                return new TrumpCustomStrat();
             case "NATE_SILVER":
                 return new SingleFunctionWithOffset(AIFunctions.GetWeightedGuess, Constants.WINNING_OFFSET);
             case "EEYORE":

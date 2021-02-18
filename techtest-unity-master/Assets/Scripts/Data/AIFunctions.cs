@@ -27,5 +27,8 @@ public class AIFunctions
         }
     }
 
-
+    public static int FullyRandom()
+    {
+        return (int)Random.Range(0, 3);
+    }
 }
