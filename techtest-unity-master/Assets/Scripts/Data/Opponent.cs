@@ -19,6 +19,16 @@ public class Opponent
         return _strategy.draw();
     }
 
+    public string getSpecialTaunt()
+    {
+        return _strategy.getSpecialTaunt();
+    }
+
+    public bool hasSpecialTaunt()
+    {
+        return _strategy.hasSpecialTaunt();
+    }
+
     public bool isDoneAfterResult(Result result)
     {
         return _strategy.isDoneAfterResult(result);

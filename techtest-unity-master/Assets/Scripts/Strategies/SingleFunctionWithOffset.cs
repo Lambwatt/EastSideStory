@@ -20,6 +20,16 @@ public class SingleFunctionWithOffset : IStrategy
         return (UseableItem)((_baseFunction()+_offset)%3);
     }
 
+    public string getSpecialTaunt()
+    {
+        return "";
+    }
+
+    public bool hasSpecialTaunt()
+    {
+        return false;
+    }
+
     public bool isDoneAfterResult(Result r)
     {
         wins -= r == Result.Won ? 1 : 0;

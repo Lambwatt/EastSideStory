@@ -6,4 +6,6 @@ public interface IStrategy
 {
     UseableItem draw();
     bool isDoneAfterResult(Result r);
+    bool hasSpecialTaunt();
+    string getSpecialTaunt();
 }

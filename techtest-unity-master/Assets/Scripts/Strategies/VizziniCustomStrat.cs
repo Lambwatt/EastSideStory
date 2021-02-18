@@ -5,6 +5,8 @@ using UnityEngine;
 public class VizziniCustomStrat : IStrategy
 {
     int _stage = 0;
+    bool _specialTauntReady = false;
+    string _specialTaunt;
 
     public UseableItem draw()
     {
@@ -27,9 +29,27 @@ public class VizziniCustomStrat : IStrategy
         }
     }
 
+    public string getSpecialTaunt()
+    {
+        _specialTauntReady = false;
+        return _specialTaunt;
+    }
+
+    public bool hasSpecialTaunt()
+    {
+        return _specialTauntReady;
+    }
+
     public bool isDoneAfterResult(Result r)
     {
         _stage += (r == Result.Won ? 1 : 0);
+        if(_stage==3 && r == Result.Won)
+        {
+            _specialTauntReady = true;
+            _specialTaunt = "I'll have to derive your move from what I know of you.";
+        }
         return _stage > 5;
     }
+
+    
 }

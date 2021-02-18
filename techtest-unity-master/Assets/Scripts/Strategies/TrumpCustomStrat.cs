@@ -6,6 +6,8 @@ public class TrumpCustomStrat : IStrategy
 {
     int _stage = 0;
     UseableItem _favourite;
+    bool _specialTauntReady = false;
+    string _specialTaunt;
 
     public UseableItem draw()
     {
@@ -32,6 +34,17 @@ public class TrumpCustomStrat : IStrategy
         }
     }
 
+    public string getSpecialTaunt()
+    {
+        _specialTauntReady = false;
+        return _specialTaunt;
+    }
+
+    public bool hasSpecialTaunt()
+    {
+        return _specialTauntReady;
+    }
+
     public bool isDoneAfterResult(Result r)
     {
         if (_stage == 0)
@@ -39,6 +52,7 @@ public class TrumpCustomStrat : IStrategy
             if(r == Result.Lost)
             {
                 _favourite = (UseableItem)((AIFunctions.GetLastPlayerMove() + Constants.WINNING_OFFSET)%3);
+                _specialTaunt = "I played " + _favourite + ". I won. It was the best win! No one thought I could do it. None of them played " + _favourite + ". Only Trump!";
                 _stage = 1;
             }
         }

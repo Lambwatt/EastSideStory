@@ -26,6 +26,16 @@ public class RandomFromSubset : IStrategy
         return _outcomes[Random.Range(0, _outcomes.Length)];
     }
 
+    public string getSpecialTaunt()
+    {
+        return "";
+    }
+
+    public bool hasSpecialTaunt()
+    {
+        return false;
+    }
+
     public bool isDoneAfterResult(Result r)
     {
         _wins -= r == Result.Won ? 1 : 0;

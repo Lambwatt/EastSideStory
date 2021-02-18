@@ -43,7 +43,11 @@ public class OpponentManager : MonoBehaviour
         }
         else
         {
-            Taunt(result);
+            if (_activeOpponent.hasSpecialTaunt())
+                Speech.text = _activeOpponent.getSpecialTaunt();
+            else
+                Taunt(result);
+
             OnOpponentSettled();
         } 
     }
