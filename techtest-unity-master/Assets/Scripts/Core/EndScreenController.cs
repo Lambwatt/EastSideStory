@@ -11,6 +11,8 @@ public class EndScreenController : MonoBehaviour
     public Button ReplayButton;
     public Button QuitButton;
 
+    public JudgementManager Judgement;
+
     int _money;
     
     LinkedListNode<GameUpdate> _iterator;
@@ -22,6 +24,9 @@ public class EndScreenController : MonoBehaviour
     {
         _iterator = SessionData.Instance.Updates.First;
         _money = SessionData.Instance.InitialCoins;
+
+        Judgement.Reset();
+
         RecordText.text = "";
         MoneyText.text = "$" + _money;
 
@@ -61,10 +66,12 @@ public class EndScreenController : MonoBehaviour
             else
             {
                 done = true;
+                
             }
         }
 
         //Handle fancy stuff at the end
+        Judgement.Judge(_money);
         ReplayButton.interactable = true;
         QuitButton.interactable = true;
     }
