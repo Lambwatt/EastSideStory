@@ -7,6 +7,7 @@ public class OpponentManager : MonoBehaviour
 {
     [SerializeField] Image Portrait;
     [SerializeField] Text Speech;
+    [SerializeField] Text Name;
 
     [SerializeField] List<Personality> Personas;
 
@@ -24,6 +25,7 @@ public class OpponentManager : MonoBehaviour
         _activeOpponent = _factory.ChooseOpponent();
         Portrait.sprite = _activeOpponent.GetPortrait();
         Speech.text = _activeOpponent.GetIntro();
+        Name.text = _activeOpponent.GetName();
     }
 
     public UseableItem GetHand()

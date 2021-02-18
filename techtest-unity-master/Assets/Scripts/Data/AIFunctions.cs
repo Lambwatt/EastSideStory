@@ -2,17 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIFunctions : MonoBehaviour
+public class AIFunctions 
 {
-    // Start is called before the first frame update
-    void Start()
+    public static int GetLastPlayerMove()
     {
-        
+        return (int)SessionData.Instance.Moves.LastMove; 
     }
 
-    // Update is called once per frame
-    void Update()
+    public static int GetWeightedGuess()
     {
-        
+        int guess = Random.Range(0, SessionData.Instance.Updates.Count);
+        MoveTracker moves = SessionData.Instance.Moves;
+        if (guess < moves.Rocks)
+        {
+            return (int)UseableItem.Rock;
+        }
+        else if(guess < moves.Rocks + moves.Papers)
+        {
+            return (int)UseableItem.Paper;
+        }
+        else
+        {
+            return (int)UseableItem.Scissors;
+        }
     }
+
+
 }

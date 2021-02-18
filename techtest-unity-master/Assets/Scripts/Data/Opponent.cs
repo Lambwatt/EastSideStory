@@ -29,6 +29,11 @@ public class Opponent
         return _persona.GetPortrait();
     }
 
+    public string GetName()
+    {
+        return _persona.GetName();
+    }
+
     public string GetIntro()
     {
         return _persona.GetIntro();

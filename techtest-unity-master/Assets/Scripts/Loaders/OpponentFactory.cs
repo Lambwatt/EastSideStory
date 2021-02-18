@@ -46,6 +46,16 @@ public class OpponentFactory
     {
         switch (key)
         {
+            case "NATE_SILVER":
+                return new SingleFunctionWithOffset(AIFunctions.GetWeightedGuess, Constants.WINNING_OFFSET);
+            case "EEYORE":
+                return new SingleFunctionWithOffset(AIFunctions.GetWeightedGuess, Constants.LOSING_OFFSET);
+            case "BETH_HARMON":
+                return new SingleFunctionWithOffset(AIFunctions.GetLastPlayerMove, Constants.WINNING_OFFSET);
+            case "BARON_HARKONNEN":
+                return new SingleFunctionWithOffset(AIFunctions.GetLastPlayerMove, Constants.LOSING_OFFSET);
+            case "CATWOMAN":
+                return new SingleFunctionWithOffset(AIFunctions.GetLastPlayerMove, 0);
             case "PETER_GRIFFIN":
                 return new RandomFromSubset(new UseableItem[] { UseableItem.Rock, UseableItem.Paper, UseableItem.Scissors });
             case "REVEREND_LOVEJOY":
