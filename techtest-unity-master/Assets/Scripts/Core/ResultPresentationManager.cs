@@ -14,10 +14,10 @@ public class ResultPresentationManager : MonoBehaviour
         string resultText = "UNASSIGNED"; //Easy bug to spot.
         switch (r)
         {
-            case Result.Won:
+            case Result.Win:
                 resultText = "YOU WIN!";
                 break;
-            case Result.Lost:
+            case Result.Lose:
                 resultText = "YOU LOST!";
                 break;
             case Result.Draw:

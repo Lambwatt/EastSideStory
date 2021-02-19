@@ -3,8 +3,8 @@ using System.Collections;
 
 public enum Result
 {
-	Won,
-	Lost,
+	Win,
+	Lose,
 	Draw
 }
 
@@ -14,11 +14,11 @@ public class ResultAnalyzer
 	{
 		if (isStronger(playerHand, enemyHand))
 		{
-			return Result.Won;
+			return Result.Win;
 		}
 		else if (isStronger(enemyHand, playerHand))
 		{
-			return Result.Lost;
+			return Result.Lose;
 		}
 		else
 		{

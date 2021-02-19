@@ -42,8 +42,8 @@ public class VizziniCustomStrat : IStrategy
 
     public bool isDoneAfterResult(Result r)
     {
-        _stage += (r == Result.Won ? 1 : 0);
-        if(_stage==3 && r == Result.Won)
+        _stage += (r == Result.Win ? 1 : 0);
+        if(_stage==3 && r == Result.Win)
         {
             _specialTauntReady = true;
             _specialTaunt = "I'll have to derive your move from what I know of you.";

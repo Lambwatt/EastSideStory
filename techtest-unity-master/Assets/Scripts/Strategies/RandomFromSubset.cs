@@ -38,7 +38,7 @@ public class RandomFromSubset : IStrategy
 
     public bool isDoneAfterResult(Result r)
     {
-        _wins -= r == Result.Won ? 1 : 0;
+        _wins -= r == Result.Win ? 1 : 0;
         return _wins<=0;
     }
 }

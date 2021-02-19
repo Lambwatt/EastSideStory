@@ -49,7 +49,7 @@ public class TrumpCustomStrat : IStrategy
     {
         if (_stage == 0)
         {
-            if(r == Result.Lost)
+            if(r == Result.Lose)
             {
                 _favourite = (UseableItem)((AIFunctions.GetLastPlayerMove() + Constants.WINNING_OFFSET)%3);
                 _specialTauntReady = true;
@@ -59,7 +59,7 @@ public class TrumpCustomStrat : IStrategy
         }
         else
         {
-            _stage += r == Result.Won ? 1 : 0;
+            _stage += r == Result.Win ? 1 : 0;
         }
         return _stage > 9;
     }

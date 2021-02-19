@@ -52,10 +52,10 @@ public class Personality : ScriptableObject
         //Note that results are always relative to the player;
         switch (result)
         {
-            case Result.Lost:
+            case Result.Lose:
                 tauntList = _winTaunts;
                 break;
-            case Result.Won:
+            case Result.Win:
                 tauntList = _loseTaunts;
                 break;
             case Result.Draw:

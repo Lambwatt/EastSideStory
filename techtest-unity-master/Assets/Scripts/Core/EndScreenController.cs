@@ -48,10 +48,10 @@ public class EndScreenController : MonoBehaviour
 
             switch (currentUpdate.drawResult)
             {
-                case Result.Won:
+                case Result.Win:
                     RecordText.text += "W";
                     break;
-                case Result.Lost:
+                case Result.Lose:
                     RecordText.text += "L";
                     break;
                 case Result.Draw:

@@ -32,7 +32,7 @@ public class SingleFunctionWithOffset : IStrategy
 
     public bool isDoneAfterResult(Result r)
     {
-        wins -= r == Result.Won ? 1 : 0;
+        wins -= r == Result.Win ? 1 : 0;
         return wins <= 0;
     }
 }

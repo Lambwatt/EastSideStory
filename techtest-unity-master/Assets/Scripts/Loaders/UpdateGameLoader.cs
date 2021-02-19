@@ -35,11 +35,11 @@ public class UpdateGameLoader
 
         gameUpdate.drawResult = ResultAnalyzer.GetResultState(playerHand, _opponentChoice);
 
-		if (gameUpdate.drawResult.Equals (Result.Won))
+		if (gameUpdate.drawResult.Equals (Result.Win))
 		{
             gameUpdate.coinsAmountChange = SessionData.Instance.GetMoney() + _bet < Constants.MAX_MONEY ? _bet : Constants.MAX_MONEY - SessionData.Instance.GetMoney();
 		}
-		else if (gameUpdate.drawResult.Equals (Result.Lost))
+		else if (gameUpdate.drawResult.Equals (Result.Lose))
 		{
             gameUpdate.coinsAmountChange = SessionData.Instance.GetMoney() - _bet > -Constants.MAX_MONEY ? -_bet : - Constants.MAX_MONEY - SessionData.Instance.GetMoney();
 		}
