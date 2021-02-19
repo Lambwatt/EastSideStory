@@ -6,9 +6,9 @@ using UnityEngine;
 public class Opponent
 {
     IStrategy _strategy;
-    Personality _persona;
+    Persona _persona;
 
-    public Opponent(IStrategy strategy, Personality persona)
+    public Opponent(IStrategy strategy, Persona persona)
     {
         _strategy = strategy;
         _persona = persona;

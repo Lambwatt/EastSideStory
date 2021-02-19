@@ -9,7 +9,7 @@ public class OpponentManager : MonoBehaviour
     [SerializeField] DialogManager Speech;
     [SerializeField] Text Name;
 
-    [SerializeField] List<Personality> Personas;
+    [SerializeField] List<Persona> Personas;
     [SerializeField] Animator PortraitAnimator;
 
     Opponent _activeOpponent;
