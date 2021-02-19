@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
 
 	void Awake()
 	{
-		_nameLabel = transform.Find ("Canvas/Name").GetComponent<Text>();
+        _nameLabel = transform.Find ("Canvas/Name").GetComponent<Text>();
 	}
 
 	void Start()

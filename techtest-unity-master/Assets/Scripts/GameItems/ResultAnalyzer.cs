@@ -10,61 +10,19 @@ public enum Result
 
 public class ResultAnalyzer
 {
-	public static Result GetResultState(UseableItem playerHand, UseableItem enemyHand)
-	{
-		if (isStronger(playerHand, enemyHand))
-		{
-			return Result.Win;
-		}
-		else if (isStronger(enemyHand, playerHand))
-		{
-			return Result.Lose;
-		}
-		else
-		{
-			return Result.Draw;
-		}
-	}
+    public static Result GetResultState(UseableItem playerHand, UseableItem enemyHand)
+    {
+        return (Result)((((playerHand + 3 - enemyHand) % 3) + 2) % 3);       
+    }
 
-	private static bool isStronger (UseableItem firstHand, UseableItem secondHand)
-	{
-		switch (firstHand)
-		{
-			case UseableItem.Rock:
-			{
-				switch (secondHand)
-				{
-					case UseableItem.Scissors:
-						return true;
-					case UseableItem.Paper:
-						return false;
-				}
-				break;
-			}
-			case UseableItem.Paper:
-			{
-				switch (secondHand)
-				{
-					case UseableItem.Rock:
-						return true;
-					case UseableItem.Scissors:
-						return false;
-				}
-				break;
-			}
-			case UseableItem.Scissors:
-			{
-				switch (secondHand)
-				{
-					case UseableItem.Paper:
-						return true;
-					case UseableItem.Rock:
-						return false;
-				}
-				break;
-			}
-		}
-
-		return false;
-	}
+    //public static void TestReplacementFunction()
+    //{
+    //    int discrepencies = 0;
+    //    foreach(UseableItem p in System.Enum.GetValues(typeof(UseableItem))){
+    //        foreach (UseableItem e in System.Enum.GetValues(typeof(UseableItem))){
+    //            discrepencies += (GetResultState(p, e) == OldGetResultState(p, e)) ? 0 : 1;
+    //        }
+    //    }
+    //    Debug.Log("Found " + discrepencies + " discrepencies.");
+    //}
 }
