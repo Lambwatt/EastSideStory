@@ -20,14 +20,12 @@ public class GameController : MonoBehaviour
     public Button[] ProgressionButtons;
 
 	private Text _nameLabel;
-	//private Text _moneyLabel;
 
 	private SessionData _session;
 
 	void Awake()
 	{
 		_nameLabel = transform.Find ("Canvas/Name").GetComponent<Text>();
-		//_moneyLabel = transform.Find ("Canvas/Money").GetComponent<Text>();
 	}
 
 	void Start()
@@ -35,22 +33,6 @@ public class GameController : MonoBehaviour
         LoadPlayer();
         opponentManager.intialize();
     }
-
-	IEnumerator CallUpdate()
-	{
-        while (true)
-        {
-            //This almost never needs to happen. Maybe move it out of the update/coroutine
-            yield return null;
-            UpdateHud();
-        }
-	}
-
-    public void UpdateHud()
-	{   
-		_nameLabel.text = "" + _session.Player.GetName();
-		//_moneyLabel.text = "Money: $" + _session.Player.GetCoins().ToString();
-	}
 
     private void LoadPlayer()
     {
@@ -64,10 +46,9 @@ public class GameController : MonoBehaviour
         playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
 
 		_session = SessionData.Instance.intialize(new Player(player));
+        _nameLabel.text = "" + _session.Player.GetName();
         moneyManager.Initialze();
         opponentManager.ChooseFirstOpponent(ReturnControl);
-       
-        //StartCoroutine(CallUpdate());
 	}
 
 	public void HandlePlayerInput(int item)
@@ -108,7 +89,9 @@ public class GameController : MonoBehaviour
         DisableControl();
         resultPresentationManager.HandleResult(gameUpdateData.drawResult, () =>
         {
-            moneyManager.UpdateMoney(gameUpdateData , ()=> { opponentManager.HandleResult(gameUpdateData.drawResult , ReturnControl); });
+            moneyManager.UpdateMoney(gameUpdateData , ()=> {
+                opponentManager.HandleResult(gameUpdateData.drawResult , ReturnControl);
+            });
         });
 
         betController.UpdateUI();

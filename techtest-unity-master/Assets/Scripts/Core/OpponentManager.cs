@@ -64,7 +64,6 @@ public class OpponentManager : MonoBehaviour
 
     void SwapOpponents(System.Action OnSwapComplete)
     {
-        //yield return new WaitForSeconds(2);
         ChooseOpponent();
         Speech.Clear();
         PlayEnterAnimation(() => {
@@ -91,20 +90,12 @@ public class OpponentManager : MonoBehaviour
     void PlayEnterAnimation(System.Action OnAnimationComplete = null)
     {
         PortraitAnimator.SetTrigger("In");
-        StartCoroutine(WaitForAnimation(1.2f, OnAnimationComplete));
+        StartCoroutine(Common.WaitThenCallAction(1.2f, OnAnimationComplete));
     }
 
     void PlayExitAnimation(System.Action OnAnimationComplete = null)
     {
         PortraitAnimator.SetTrigger("Out");
-        StartCoroutine(WaitForAnimation(1.2f, OnAnimationComplete));
+        StartCoroutine(Common.WaitThenCallAction(1.2f, OnAnimationComplete));
     }
-
-    IEnumerator WaitForAnimation(float animationTime, System.Action OnAnimationComplete = null)
-    {
-        yield return new WaitForSeconds(animationTime);
-        if(OnAnimationComplete!=null)
-            OnAnimationComplete();
-    }
-
 }

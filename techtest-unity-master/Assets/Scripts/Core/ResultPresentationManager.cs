@@ -27,15 +27,6 @@ public class ResultPresentationManager : MonoBehaviour
 
         _result.text = resultText;
         _animator.SetTrigger(r.ToString());
-        StartCoroutine(WaitForAnimation(OnAnimationComplete));
-    }
-
-    IEnumerator WaitForAnimation(System.Action OnAnimationComplete = null)
-    {
-        yield return new WaitForSeconds(_animTime);
-        if (OnAnimationComplete != null)
-        {
-            OnAnimationComplete();
-        }
+        StartCoroutine(Common.WaitThenCallAction(_animTime, OnAnimationComplete));
     }
 }
