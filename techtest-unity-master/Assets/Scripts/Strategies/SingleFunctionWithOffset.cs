@@ -7,7 +7,7 @@ public class SingleFunctionWithOffset : IStrategy
 {
     Func<int> _baseFunction;
     int _offset;
-    int wins = 4;
+    int _wins = 4;
 
     public SingleFunctionWithOffset(Func<int> baseFunction, int offset)
     {
@@ -15,24 +15,24 @@ public class SingleFunctionWithOffset : IStrategy
         _offset = offset;
     }
 
-    public UseableItem draw()
+    public UseableItem Draw()
     {
         return (UseableItem)((_baseFunction()+_offset)%3);
     }
 
-    public string getSpecialTaunt()
+    public string GetSpecialTaunt()
     {
         return "";
     }
 
-    public bool hasSpecialTaunt()
+    public bool HasSpecialTaunt()
     {
         return false;
     }
 
-    public bool isDoneAfterResult(Result r)
+    public bool IsDoneAfterResult(Result r)
     {
-        wins -= r == Result.Win ? 1 : 0;
-        return wins <= 0;
+        _wins -= r == Result.Win ? 1 : 0;
+        return _wins <= 0;
     }
 }

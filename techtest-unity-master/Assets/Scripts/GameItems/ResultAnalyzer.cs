@@ -15,6 +15,7 @@ public class ResultAnalyzer
         return (Result)((((playerHand + 3 - enemyHand) % 3) + 2) % 3);       
     }
 
+    #region -- Saved for posterity --
     //public static void TestReplacementFunction()
     //{
     //    int discrepencies = 0;
@@ -25,4 +26,5 @@ public class ResultAnalyzer
     //    }
     //    Debug.Log("Found " + discrepencies + " discrepencies.");
     //}
+    #endregion
 }

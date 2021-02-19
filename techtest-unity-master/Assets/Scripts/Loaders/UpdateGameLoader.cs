@@ -4,12 +4,12 @@ using System;
 
 public class UpdateGameLoader
 {
-	public delegate void OnLoadedAction(GameUpdate gameUpdateData);
-	public event OnLoadedAction OnLoaded;
-
 	private UseableItem _playerChoice;
     private UseableItem _opponentChoice;
     private int _bet;
+
+    public delegate void OnLoadedAction(GameUpdate gameUpdateData);
+	public event OnLoadedAction OnLoaded;
 
 	public UpdateGameLoader(UseableItem playerChoice, UseableItem opponentChoice, int playerBet)
 	{
@@ -20,8 +20,6 @@ public class UpdateGameLoader
 
 	public void load()
 	{
-        //UseableItem opponentHand = UseableItem.Rock;//(UseableItem)UnityEngine.Random.Range(0, Enum.GetValues(typeof(UseableItem)).Length);
-
         GameUpdate gameUpdate = HandleDraw(_playerChoice, _opponentChoice);
 		OnLoaded(gameUpdate);
 	}

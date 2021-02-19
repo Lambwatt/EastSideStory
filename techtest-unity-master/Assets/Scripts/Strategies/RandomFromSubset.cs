@@ -21,22 +21,22 @@ public class RandomFromSubset : IStrategy
         _wins = wins;
     }
 
-    public UseableItem draw()
+    public UseableItem Draw()
     {
         return _outcomes[Random.Range(0, _outcomes.Length)];
     }
 
-    public string getSpecialTaunt()
+    public string GetSpecialTaunt()
     {
         return "";
     }
 
-    public bool hasSpecialTaunt()
+    public bool HasSpecialTaunt()
     {
         return false;
     }
 
-    public bool isDoneAfterResult(Result r)
+    public bool IsDoneAfterResult(Result r)
     {
         _wins -= r == Result.Win ? 1 : 0;
         return _wins<=0;

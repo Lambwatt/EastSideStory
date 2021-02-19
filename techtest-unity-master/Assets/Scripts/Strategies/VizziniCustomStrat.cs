@@ -8,7 +8,7 @@ public class VizziniCustomStrat : IStrategy
     bool _specialTauntReady = false;
     string _specialTaunt;
 
-    public UseableItem draw()
+    public UseableItem Draw()
     {
         switch (_stage)
         {
@@ -29,18 +29,18 @@ public class VizziniCustomStrat : IStrategy
         }
     }
 
-    public string getSpecialTaunt()
+    public string GetSpecialTaunt()
     {
         _specialTauntReady = false;
         return _specialTaunt;
     }
 
-    public bool hasSpecialTaunt()
+    public bool HasSpecialTaunt()
     {
         return _specialTauntReady;
     }
 
-    public bool isDoneAfterResult(Result r)
+    public bool IsDoneAfterResult(Result r)
     {
         _stage += (r == Result.Win ? 1 : 0);
         if(_stage==3 && r == Result.Win)

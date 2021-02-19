@@ -16,22 +16,22 @@ public class Opponent
 
     public UseableItem Draw()
     {
-        return _strategy.draw();
+        return _strategy.Draw();
     }
 
     public string getSpecialTaunt()
     {
-        return _strategy.getSpecialTaunt();
+        return _strategy.GetSpecialTaunt();
     }
 
     public bool hasSpecialTaunt()
     {
-        return _strategy.hasSpecialTaunt();
+        return _strategy.HasSpecialTaunt();
     }
 
     public bool isDoneAfterResult(Result result)
     {
-        return _strategy.isDoneAfterResult(result);
+        return _strategy.IsDoneAfterResult(result);
     }
 
     public Sprite GetPortrait()
