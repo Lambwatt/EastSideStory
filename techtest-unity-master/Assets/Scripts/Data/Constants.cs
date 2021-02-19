@@ -10,4 +10,5 @@ public class Constants
     public const int WINNING_OFFSET = 1;
     public const int LOSING_OFFSET = 2;
 
+    public const float WAIT_TIME = 1.2f;
 }

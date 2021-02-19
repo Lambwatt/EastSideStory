@@ -92,12 +92,12 @@ public class OpponentManager : MonoBehaviour
     private void PlayEnterAnimation(System.Action OnAnimationComplete = null)
     {
         PortraitAnimator.SetTrigger("In");
-        StartCoroutine(Common.WaitThenCallAction(1.2f, OnAnimationComplete));
+        StartCoroutine(Common.WaitThenCallAction(Constants.WAIT_TIME, OnAnimationComplete));
     }
 
     private void PlayExitAnimation(System.Action OnAnimationComplete = null)
     {
         PortraitAnimator.SetTrigger("Out");
-        StartCoroutine(Common.WaitThenCallAction(1.2f, OnAnimationComplete));
+        StartCoroutine(Common.WaitThenCallAction(Constants.WAIT_TIME, OnAnimationComplete));
     }
 }

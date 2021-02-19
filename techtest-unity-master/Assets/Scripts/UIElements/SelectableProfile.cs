@@ -6,8 +6,8 @@ using System;
 
 public class SelectableProfile : MonoBehaviour
 {
-    public Text Name;
-    public Text Money;
+    public Text playerName;
+    public Text money;
 
     public Image selectionBackground;
 
@@ -22,8 +22,8 @@ public class SelectableProfile : MonoBehaviour
     public void Initialize(PlayerData player, OnSelectedAction onClick)
     {
         _player = player;
-        Name.text = _player.name;
-        Money.text = "$"+_player.coins;
+        playerName.text = _player.name;
+        money.text = "$"+_player.coins;
         OnSelected = onClick;
     }
 
