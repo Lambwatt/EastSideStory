@@ -5,16 +5,14 @@ using UnityEngine.UI;
 
 public class BetController : MonoBehaviour
 {
-    const int MAX_FREE_BET = 500;
+    [SerializeField] InputField BetField;
+
+    [SerializeField] Button UpButton;
+    [SerializeField] Button DownButton;
+    [SerializeField] Button MaxButton;
+    [SerializeField] Button MinButton;
 
     int _bet = 10;
-
-    public InputField BetField;
-
-    public Button UpButton;
-    public Button DownButton;
-    public Button MaxButton;
-    public Button MinButton;
 
     // Start is called before the first frame update
     void Start()
@@ -28,15 +26,15 @@ public class BetController : MonoBehaviour
         int money = SessionData.Instance.GetMoney();
 
         bool canIncrease;
-        if (money > MAX_FREE_BET)
+        if (money > Constants.MAX_FREE_BET)
         {
             _bet = Mathf.Clamp(_bet, 1, money);
             canIncrease = _bet < money;
         }
         else
         {
-            _bet = Mathf.Clamp(_bet, 1, MAX_FREE_BET);
-            canIncrease = _bet < MAX_FREE_BET;
+            _bet = Mathf.Clamp(_bet, 1, Constants.MAX_FREE_BET);
+            canIncrease = _bet < Constants.MAX_FREE_BET;
         }
         MaxButton.interactable = canIncrease;
         UpButton.interactable = canIncrease;
