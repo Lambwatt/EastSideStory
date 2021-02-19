@@ -22,7 +22,7 @@ public class MoneyManager : MonoBehaviour
             OnMoneyUpdated();
         } else { 
             _animator.SetTrigger(update.drawResult.ToString());
-            StartCoroutine(Common.WaitThenCallAction(1.2f, OnMoneyUpdated));
+            StartCoroutine(Common.WaitThenCallAction(Constants.WAIT_TIME, OnMoneyUpdated));
         }
     }
 }
