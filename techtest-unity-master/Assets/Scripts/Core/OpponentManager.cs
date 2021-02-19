@@ -20,14 +20,14 @@ public class OpponentManager : MonoBehaviour
         _factory = new OpponentFactory(Personas); 
     }
 
-    public void ChooseFirstOpponent()
+    public void ChooseFirstOpponent(System.Action OnOpponentChosen = null)
     {
         PortraitAnimator.SetTrigger("Reset");
         ChooseOpponent();
         Speech.Clear();
         PlayEnterAnimation(() =>
         {
-            Speech.PostDialog(_activeOpponent.GetIntro());
+            Speech.PostDialog(_activeOpponent.GetIntro(), OnOpponentChosen);
         });
     }
 

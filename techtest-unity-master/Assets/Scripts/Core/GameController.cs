@@ -47,9 +47,11 @@ public class GameController : MonoBehaviour
 
 	public void OnPlayerInfoLoaded(PlayerData player)
 	{
-		_session = SessionData.Instance.intialize(new Player(player));
-        opponentManager.ChooseFirstOpponent();
         playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
+
+		_session = SessionData.Instance.intialize(new Player(player));
+        opponentManager.ChooseFirstOpponent(ReturnControl);
+       
         StartCoroutine(CallUpdate());
 	}
 
@@ -61,6 +63,7 @@ public class GameController : MonoBehaviour
 
     private void LoadPlayer()
     {
+        DisableControl();
         playerLoadController.gameObject.SetActive(true);
         playerLoadController.OnLoaded += OnPlayerInfoLoaded;
     }
