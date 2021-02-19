@@ -23,12 +23,12 @@ public class JudgementManager : MonoBehaviour
     }
 
     public List<MoneyLevel> levels;
-    public Text JudgementText;
-    public Animator JudgementAnimation;
+    public Text judgementText;
+    public Animator judgementAnimation;
 
     public void Reset()
     {
-        JudgementAnimation.SetTrigger("Reset");
+        judgementAnimation.SetTrigger("Reset");
     }
 
     public void Judge(int money)
@@ -65,24 +65,24 @@ public class JudgementManager : MonoBehaviour
         switch (level.category)
         {
             case JudgementCategory.Negative:
-                JudgementText.text = level.text;
-                JudgementAnimation.SetTrigger("Negative");        
+                judgementText.text = level.text;
+                judgementAnimation.SetTrigger("Negative");        
                 break;
             case JudgementCategory.Zero:
-                JudgementText.text = level.text;
-                JudgementAnimation.SetTrigger("Zero");
+                judgementText.text = level.text;
+                judgementAnimation.SetTrigger("Zero");
                 break;
             case JudgementCategory.Less:
-                JudgementText.text = "At least you've got "+level.text+" money.";
-                JudgementAnimation.SetTrigger("Less");
+                judgementText.text = "At least you've got "+level.text+" money.";
+                judgementAnimation.SetTrigger("Less");
                 break;
             case JudgementCategory.Greater:
-                JudgementText.text = "You've got that "+level.text+" money!";
-                JudgementAnimation.SetTrigger("Greater");
+                judgementText.text = "You've got that "+level.text+" money!";
+                judgementAnimation.SetTrigger("Greater");
                 break;
             case JudgementCategory.Max:
-                JudgementText.text = level.text;
-                JudgementAnimation.SetTrigger("Max");
+                judgementText.text = level.text;
+                judgementAnimation.SetTrigger("Max");
                 break;
                 
         }

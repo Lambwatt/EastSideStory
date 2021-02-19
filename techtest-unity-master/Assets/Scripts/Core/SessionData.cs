@@ -12,10 +12,7 @@ public class SessionData
     public int InitialCoins { get; private set; } = 50;
     public MoveTracker Moves { get; private set; }
 
-    private SessionData()
-    {
-        //intialize();
-    }
+    private SessionData(){}
 
     public static SessionData Instance
     {

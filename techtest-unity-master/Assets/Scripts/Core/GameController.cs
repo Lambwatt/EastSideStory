@@ -6,18 +6,18 @@ using System;
 
 public class GameController : MonoBehaviour
 {
-	[SerializeField] Text _playerHand;
-    [SerializeField] Text _enemyHand;
+    public Text playerHand;
+    public Text enemyHand;
 
-    [SerializeField] PlayerLoadController _playerLoadController;
-    [SerializeField] EndScreenController _endScreenController;
-    [SerializeField] BetController _betController;
+    public PlayerLoadController playerLoadController;
+    public EndScreenController endScreenController;
+    public BetController betController;
 
-    [SerializeField] OpponentManager _opponentManager;
-    [SerializeField] ResultPresentationManager _resultPresentationManager;
-    [SerializeField] MoneyManager _moneyManager;
+    public OpponentManager opponentManager;
+    public ResultPresentationManager resultPresentationManager;
+    public MoneyManager moneyManager;
 
-    [SerializeField] Button[] _progressionButtons;
+    public Button[] progressionButtons;
 
 	private Text _nameLabel;
 	private SessionData _session;
@@ -31,23 +31,23 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
         LoadPlayer();
-        _opponentManager.intialize();
+        opponentManager.intialize();
     }
 
     private void LoadPlayer()
     {
         DisableControl();
-        _playerLoadController.gameObject.SetActive(true);
-        _playerLoadController.OnLoaded += OnPlayerInfoLoaded;
+        playerLoadController.gameObject.SetActive(true);
+        playerLoadController.OnLoaded += OnPlayerInfoLoaded;
     }
 
 	private void OnPlayerInfoLoaded(PlayerData player)
 	{
-        _playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
+        playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
 		_session = SessionData.Instance.intialize(new Player(player));
         _nameLabel.text = "" + _session.Player.GetName();
-        _moneyManager.Initialze();
-        _opponentManager.ChooseFirstOpponent(ReturnControl);
+        moneyManager.Initialze();
+        opponentManager.ChooseFirstOpponent(ReturnControl);
 	}
     #endregion
 
@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
 				break;
 		}
 
-        UpdateGame(playerChoice, _opponentManager.GetHand(), _betController.GetBet());
+        UpdateGame(playerChoice, opponentManager.GetHand(), betController.GetBet());
 	}
 
 	private void UpdateGame(UseableItem playerChoice, UseableItem opponentChoice, int bet)
@@ -80,21 +80,21 @@ public class GameController : MonoBehaviour
 
 	private void OnGameUpdated(GameUpdate gameUpdateData)
 	{
-		_playerHand.text = DisplayResultAsText(gameUpdateData.resultPlayer);
-		_enemyHand.text = DisplayResultAsText(gameUpdateData.resultOpponent);
+		playerHand.text = DisplayResultAsText(gameUpdateData.resultPlayer);
+		enemyHand.text = DisplayResultAsText(gameUpdateData.resultOpponent);
 
 		_session.Player.ChangeCoinAmount(gameUpdateData.coinsAmountChange);
         _session.AddGameUpdate(gameUpdateData);
 
         DisableControl();
-        _resultPresentationManager.HandleResult(gameUpdateData.drawResult, () =>
+        resultPresentationManager.HandleResult(gameUpdateData.drawResult, () =>
         {
-            _moneyManager.UpdateMoney(gameUpdateData , ()=> {
-                _opponentManager.HandleResult(gameUpdateData.drawResult , ReturnControl);
+            moneyManager.UpdateMoney(gameUpdateData , ()=> {
+                opponentManager.HandleResult(gameUpdateData.drawResult , ReturnControl);
             });
         });
 
-        _betController.UpdateUI();
+        betController.UpdateUI();
 	}
 
     private string DisplayResultAsText(UseableItem result)
@@ -127,9 +127,9 @@ public class GameController : MonoBehaviour
 
     private void SetProgressionButtons(bool status)
     {
-        for(int i = 0; i<_progressionButtons.Length; i++)
+        for(int i = 0; i<progressionButtons.Length; i++)
         {
-            _progressionButtons[i].interactable = status;
+            progressionButtons[i].interactable = status;
         }
     }
     #endregion
@@ -138,13 +138,13 @@ public class GameController : MonoBehaviour
     public void OnRetire()
     {
         _session.SavePlayerData();
-        _endScreenController.OnReplay += HandleRestart;
-        _endScreenController.gameObject.SetActive(true);
+        endScreenController.OnReplay += HandleRestart;
+        endScreenController.gameObject.SetActive(true);
     }
 
     private void HandleRestart()
     {
-        _endScreenController.OnReplay -= HandleRestart;
+        endScreenController.OnReplay -= HandleRestart;
         LoadPlayer();
     }
     #endregion

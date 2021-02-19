@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class BetController : MonoBehaviour
 {
-    [SerializeField] InputField BetField;
+    public InputField BetField;
 
-    [SerializeField] Button UpButton;
-    [SerializeField] Button DownButton;
-    [SerializeField] Button MaxButton;
-    [SerializeField] Button MinButton;
+    public Button UpButton;
+    public Button DownButton;
+    public Button MaxButton;
+    public Button MinButton;
 
     int _bet = 10;
 

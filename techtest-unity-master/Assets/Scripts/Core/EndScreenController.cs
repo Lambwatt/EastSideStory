@@ -96,7 +96,5 @@ public class EndScreenController : MonoBehaviour
         {
             Debug.Log("ERROR: Restart event not set.");
         }
-
     }
-
 }

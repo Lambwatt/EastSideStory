@@ -12,9 +12,8 @@ public class PlayerLoadController : MonoBehaviour
 
     public SelectableProfile profilePrefab;
 
+    SelectableProfile _activeProfile;
     PlayerDataList _playerList;
-
-    SelectableProfile activeProfile;
 
     public delegate void OnLoadedAction(PlayerData playerData);
     public event OnLoadedAction OnLoaded;
@@ -63,16 +62,16 @@ public class PlayerLoadController : MonoBehaviour
 
     void OnClickProfile(SelectableProfile profile)
     {
-        if (activeProfile != null && activeProfile!=profile)
-            activeProfile.Deselect();
+        if (_activeProfile != null && _activeProfile!=profile)
+            _activeProfile.Deselect();
 
-        activeProfile = profile;
+        _activeProfile = profile;
         LoadButton.interactable = true;
     }
 
     public void Load()
     {
-        OnLoaded(activeProfile.GetPlayer());
+        OnLoaded(_activeProfile.GetPlayer());
         Close();
     }
 

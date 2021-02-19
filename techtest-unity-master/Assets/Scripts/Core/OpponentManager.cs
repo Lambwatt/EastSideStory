@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class OpponentManager : MonoBehaviour
 {
-    [SerializeField] Image Portrait;
-    [SerializeField] DialogManager Speech;
-    [SerializeField] Text Name;
+    public Image Portrait;
+    public DialogManager Speech;
+    public Text Name;
 
-    [SerializeField] List<Persona> Personas;
-    [SerializeField] Animator PortraitAnimator;
+    public List<Persona> Personas;
+    public Animator PortraitAnimator;
 
     Opponent _activeOpponent;
     OpponentFactory _factory; 
@@ -31,12 +31,7 @@ public class OpponentManager : MonoBehaviour
         });
     }
 
-    void ChooseOpponent()
-    {
-        _activeOpponent = _factory.ChooseOpponent();
-        Portrait.sprite = _activeOpponent.GetPortrait();       
-        Name.text = _activeOpponent.GetName();
-    }
+    
 
     public UseableItem GetHand()
     {
@@ -62,7 +57,14 @@ public class OpponentManager : MonoBehaviour
         } 
     }
 
-    void SwapOpponents(System.Action OnSwapComplete)
+    void ChooseOpponent()
+    {
+        _activeOpponent = _factory.ChooseOpponent();
+        Portrait.sprite = _activeOpponent.GetPortrait();       
+        Name.text = _activeOpponent.GetName();
+    }
+
+    private void SwapOpponents(System.Action OnSwapComplete)
     {
         ChooseOpponent();
         Speech.Clear();
@@ -75,7 +77,7 @@ public class OpponentManager : MonoBehaviour
         
     }
 
-    void Taunt(Result r)
+    private void Taunt(Result r)
     {
         if (UnityEngine.Random.Range(0, 2) == 0)
         {
@@ -87,13 +89,13 @@ public class OpponentManager : MonoBehaviour
         }
     }
 
-    void PlayEnterAnimation(System.Action OnAnimationComplete = null)
+    private void PlayEnterAnimation(System.Action OnAnimationComplete = null)
     {
         PortraitAnimator.SetTrigger("In");
         StartCoroutine(Common.WaitThenCallAction(1.2f, OnAnimationComplete));
     }
 
-    void PlayExitAnimation(System.Action OnAnimationComplete = null)
+    private void PlayExitAnimation(System.Action OnAnimationComplete = null)
     {
         PortraitAnimator.SetTrigger("Out");
         StartCoroutine(Common.WaitThenCallAction(1.2f, OnAnimationComplete));

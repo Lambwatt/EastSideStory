@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ResultPresentationManager : MonoBehaviour
 {
-    [SerializeField] Animator _animator;
-    [SerializeField] float _animTime;
-    [SerializeField] Text _result;
+    public Animator _animator;
+    public float _animTime;
+    public Text _result;
 
     public void HandleResult(Result r, System.Action OnAnimationComplete = null)
     {

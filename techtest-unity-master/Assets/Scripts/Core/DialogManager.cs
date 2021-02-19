@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
-    [SerializeField] Text Dialog;
+    public Text dialog;
 
     public void Clear()
     {
-        Dialog.text = "";
+        dialog.text = "";
     }
 
     public void PostDialog(string line, System.Action OnDialogComplete = null)
     {
         Clear();
-        StartCoroutine(printDialog(line, OnDialogComplete));
+        StartCoroutine(PrintDialog(line, OnDialogComplete));
     }
 
-    IEnumerator printDialog(string line, System.Action OnDialogComplete = null)
+    IEnumerator PrintDialog(string line, System.Action OnDialogComplete = null)
     {
         for (int i = 0; i < line.Length; i++) {
-            Dialog.text += line[i];
+            dialog.text += line[i];
             yield return null;
         }
 
