@@ -31,7 +31,6 @@ public class SessionData
         Player = p;
         InitialCoins = Player.GetCoins();
         Updates = new LinkedList<GameUpdate>();
-        //Reset anything else
         Moves = new MoveTracker();
         return _instance;
     }

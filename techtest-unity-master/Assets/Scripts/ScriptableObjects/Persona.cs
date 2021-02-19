@@ -5,15 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Personality", order = 1)]
 public class Persona : ScriptableObject
 {
-    [SerializeField] string _id;
-    [SerializeField] int _minRounds;
-    [SerializeField] Sprite _portrait;
-    [SerializeField] string _name;
-    [SerializeField] string _intro;
-    [SerializeField] string _outro;
-    [SerializeField] string[] _winTaunts;
-    [SerializeField] string[] _loseTaunts;
-    [SerializeField] string[] _tieTaunts;
+    //The underscores here are inconsistent, but the data will be lost if they are renamed.
+    public string _id;
+    public int _minRounds;
+    public Sprite _portrait;
+    public string _name;
+    public string _intro;
+    public string _outro;
+    public string[] _winTaunts;
+    public string[] _loseTaunts;
+    public string[] _tieTaunts;
 
     public int GetMinRounds()
     {
