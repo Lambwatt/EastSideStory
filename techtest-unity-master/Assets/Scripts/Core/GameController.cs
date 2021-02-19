@@ -6,24 +6,24 @@ using System;
 
 public class GameController : MonoBehaviour
 {
-	public Text playerHand;
-	public Text enemyHand;
+	[SerializeField] Text _playerHand;
+    [SerializeField] Text _enemyHand;
 
-    public PlayerLoadController playerLoadController;
-    public EndScreenController endScreenController;
-    public BetController betController;
+    [SerializeField] PlayerLoadController _playerLoadController;
+    [SerializeField] EndScreenController _endScreenController;
+    [SerializeField] BetController _betController;
 
-    public OpponentManager opponentManager;
-    public ResultPresentationManager resultPresentationManager;
-    public MoneyManager moneyManager;
+    [SerializeField] OpponentManager _opponentManager;
+    [SerializeField] ResultPresentationManager _resultPresentationManager;
+    [SerializeField] MoneyManager _moneyManager;
 
-    public Button[] ProgressionButtons;
+    [SerializeField] Button[] _progressionButtons;
 
 	private Text _nameLabel;
-
 	private SessionData _session;
 
-	void Awake()
+    #region -- Startup -- 
+    void Awake()
 	{
         _nameLabel = transform.Find ("Canvas/Name").GetComponent<Text>();
 	}
@@ -31,27 +31,29 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
         LoadPlayer();
-        opponentManager.intialize();
+        _opponentManager.intialize();
     }
 
     private void LoadPlayer()
     {
         DisableControl();
-        playerLoadController.gameObject.SetActive(true);
-        playerLoadController.OnLoaded += OnPlayerInfoLoaded;
+        _playerLoadController.gameObject.SetActive(true);
+        _playerLoadController.OnLoaded += OnPlayerInfoLoaded;
     }
 
 	public void OnPlayerInfoLoaded(PlayerData player)
 	{
-        playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
+        _playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
 
 		_session = SessionData.Instance.intialize(new Player(player));
         _nameLabel.text = "" + _session.Player.GetName();
-        moneyManager.Initialze();
-        opponentManager.ChooseFirstOpponent(ReturnControl);
+        _moneyManager.Initialze();
+        _opponentManager.ChooseFirstOpponent(ReturnControl);
 	}
+    #endregion
 
-	public void HandlePlayerInput(int item)
+    #region -- Gameplay --
+    public void HandlePlayerInput(int item)
 	{
 		UseableItem playerChoice = UseableItem.Rock;
 
@@ -68,7 +70,7 @@ public class GameController : MonoBehaviour
 				break;
 		}
 
-        UpdateGame(playerChoice, opponentManager.GetHand(), betController.GetBet());
+        UpdateGame(playerChoice, _opponentManager.GetHand(), _betController.GetBet());
 	}
 
 	private void UpdateGame(UseableItem playerChoice, UseableItem opponentChoice, int bet)
@@ -80,23 +82,41 @@ public class GameController : MonoBehaviour
 
 	public void OnGameUpdated(GameUpdate gameUpdateData)
 	{
-		playerHand.text = DisplayResultAsText(gameUpdateData.resultPlayer);
-		enemyHand.text = DisplayResultAsText(gameUpdateData.resultOpponent);
+		_playerHand.text = DisplayResultAsText(gameUpdateData.resultPlayer);
+		_enemyHand.text = DisplayResultAsText(gameUpdateData.resultOpponent);
 
 		_session.Player.ChangeCoinAmount(gameUpdateData.coinsAmountChange);
         _session.AddGameUpdate(gameUpdateData);
 
         DisableControl();
-        resultPresentationManager.HandleResult(gameUpdateData.drawResult, () =>
+        _resultPresentationManager.HandleResult(gameUpdateData.drawResult, () =>
         {
-            moneyManager.UpdateMoney(gameUpdateData , ()=> {
-                opponentManager.HandleResult(gameUpdateData.drawResult , ReturnControl);
+            _moneyManager.UpdateMoney(gameUpdateData , ()=> {
+                _opponentManager.HandleResult(gameUpdateData.drawResult , ReturnControl);
             });
         });
 
-        betController.UpdateUI();
+        _betController.UpdateUI();
 	}
 
+    private string DisplayResultAsText(UseableItem result)
+    {
+        switch (result)
+        {
+            case UseableItem.Rock:
+                return "Rock";
+            case UseableItem.Paper:
+                return "Paper";
+            case UseableItem.Scissors:
+                return "Scissors";
+        }
+
+        //Unreachable
+        return "Nothing";
+    }
+    #endregion
+
+    #region -- Button Management --
     public void DisableControl()
     {
         SetProgressionButtons(false);
@@ -109,15 +129,17 @@ public class GameController : MonoBehaviour
 
     public void SetProgressionButtons(bool status)
     {
-        for(int i = 0; i<ProgressionButtons.Length; i++)
+        for(int i = 0; i<_progressionButtons.Length; i++)
         {
-            ProgressionButtons[i].interactable = status;
+            _progressionButtons[i].interactable = status;
         }
     }
+    #endregion
 
+    #region -- Endgame Flow --
     public void HandleRestart()
     {
-        endScreenController.OnReplay -= HandleRestart;
+        _endScreenController.OnReplay -= HandleRestart;
 
         LoadPlayer();
     }
@@ -125,23 +147,8 @@ public class GameController : MonoBehaviour
     public void OnRetire()
     {
         _session.SavePlayerData();
-        endScreenController.OnReplay += HandleRestart;
-        endScreenController.gameObject.SetActive(true);
+        _endScreenController.OnReplay += HandleRestart;
+        _endScreenController.gameObject.SetActive(true);
     }
-
-	private string DisplayResultAsText (UseableItem result)
-	{
-		switch (result)
-		{
-			case UseableItem.Rock:
-				return "Rock";
-			case UseableItem.Paper:
-				return "Paper";
-			case UseableItem.Scissors:
-				return "Scissors";
-		}
-
-        //Unreachable
-		return "Nothing";
-	}
+    #endregion
 }
