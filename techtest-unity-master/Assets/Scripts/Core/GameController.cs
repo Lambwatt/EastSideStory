@@ -12,7 +12,9 @@ public class GameController : MonoBehaviour
     public PlayerLoadController playerLoadController;
     public EndScreenController endScreenController;
     public BetController betController;
+
     public OpponentManager opponentManager;
+    public ResultPresentationManager resultPresentationManager;
 
     public Button[] ProgressionButtons;
 
@@ -29,13 +31,8 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
-        //PlayerInfoLoader playerInfoLoader = new PlayerInfoLoader();
-
-        //Open intro window
         LoadPlayer();
         opponentManager.intialize();
-        //Debug.Log("Pause here");
-        //playerInfoLoader.load();
     }
 
 	IEnumerator CallUpdate()
@@ -57,9 +54,8 @@ public class GameController : MonoBehaviour
 	}
 
 	public void UpdateHud()
-	{
-        
-		_nameLabel.text = "Name: " + _session.Player.GetName();
+	{   
+		_nameLabel.text = "" + _session.Player.GetName();
 		_moneyLabel.text = "Money: $" + _session.Player.GetCoins().ToString();
 	}
 
@@ -105,7 +101,10 @@ public class GameController : MonoBehaviour
         _session.AddGameUpdate(gameUpdateData);
 
         DisableControl();
-        opponentManager.HandleResult(gameUpdateData.drawResult, ReturnControl);
+        resultPresentationManager.HandleResult(gameUpdateData.drawResult, () =>
+        {
+            opponentManager.HandleResult(gameUpdateData.drawResult, ReturnControl);
+        });
 
         betController.UpdateUI();
 	}
