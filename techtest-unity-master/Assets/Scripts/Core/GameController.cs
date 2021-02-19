@@ -41,10 +41,9 @@ public class GameController : MonoBehaviour
         _playerLoadController.OnLoaded += OnPlayerInfoLoaded;
     }
 
-	public void OnPlayerInfoLoaded(PlayerData player)
+	private void OnPlayerInfoLoaded(PlayerData player)
 	{
         _playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
-
 		_session = SessionData.Instance.intialize(new Player(player));
         _nameLabel.text = "" + _session.Player.GetName();
         _moneyManager.Initialze();
@@ -56,7 +55,6 @@ public class GameController : MonoBehaviour
     public void HandlePlayerInput(int item)
 	{
 		UseableItem playerChoice = UseableItem.Rock;
-
 		switch (item)
 		{
 			case 0:
@@ -80,7 +78,7 @@ public class GameController : MonoBehaviour
 		updateGameLoader.load();
 	}
 
-	public void OnGameUpdated(GameUpdate gameUpdateData)
+	private void OnGameUpdated(GameUpdate gameUpdateData)
 	{
 		_playerHand.text = DisplayResultAsText(gameUpdateData.resultPlayer);
 		_enemyHand.text = DisplayResultAsText(gameUpdateData.resultOpponent);
@@ -117,17 +115,17 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region -- Button Management --
-    public void DisableControl()
+    private void DisableControl()
     {
         SetProgressionButtons(false);
     }
 
-    public void ReturnControl()
+    private void ReturnControl()
     {
         SetProgressionButtons(true);
     }
 
-    public void SetProgressionButtons(bool status)
+    private void SetProgressionButtons(bool status)
     {
         for(int i = 0; i<_progressionButtons.Length; i++)
         {
@@ -137,18 +135,17 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region -- Endgame Flow --
-    public void HandleRestart()
-    {
-        _endScreenController.OnReplay -= HandleRestart;
-
-        LoadPlayer();
-    }
-
     public void OnRetire()
     {
         _session.SavePlayerData();
         _endScreenController.OnReplay += HandleRestart;
         _endScreenController.gameObject.SetActive(true);
+    }
+
+    private void HandleRestart()
+    {
+        _endScreenController.OnReplay -= HandleRestart;
+        LoadPlayer();
     }
     #endregion
 }
