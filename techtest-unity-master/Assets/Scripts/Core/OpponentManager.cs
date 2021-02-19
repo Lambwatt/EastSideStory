@@ -17,7 +17,12 @@ public class OpponentManager : MonoBehaviour
 
     public void intialize()
     {
-        _factory = new OpponentFactory(Personas);
+        _factory = new OpponentFactory(Personas); 
+    }
+
+    public void ChooseFirstOpponent()
+    {
+        PortraitAnimator.SetTrigger("Reset");
         ChooseOpponent();
         Speech.Clear();
         PlayEnterAnimation(() =>

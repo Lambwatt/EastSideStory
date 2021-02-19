@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
 
         //Open intro window
         LoadPlayer();
-
+        opponentManager.intialize();
         //Debug.Log("Pause here");
         //playerInfoLoader.load();
     }
@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
 	public void OnPlayerInfoLoaded(PlayerData player)
 	{
 		_session = SessionData.Instance.intialize(new Player(player));
-        opponentManager.intialize();
+        opponentManager.ChooseFirstOpponent();
         playerLoadController.OnLoaded -= OnPlayerInfoLoaded;
         StartCoroutine(CallUpdate());
 	}
@@ -131,6 +131,7 @@ public class GameController : MonoBehaviour
     public void HandleRestart()
     {
         endScreenController.OnReplay -= HandleRestart;
+
         LoadPlayer();
     }
 
