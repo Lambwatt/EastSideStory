@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class SingleFunctionWithOffset : IStrategy
 {
-    Func<int> _baseFunction;
-    int _offset;
-    int _wins = 4;
+    private Func<int> _baseFunction;
+    private int _offset;
+    private int _wins = 4;
 
     public SingleFunctionWithOffset(Func<int> baseFunction, int offset)
     {

@@ -5,19 +5,27 @@ using UnityEngine.UI;
 
 public class BetController : MonoBehaviour
 {
-    public InputField BetField;
+    [SerializeField] InputField _betField;
+    public InputField betField => _betField;
 
-    public Button UpButton;
-    public Button DownButton;
-    public Button MaxButton;
-    public Button MinButton;
+    [SerializeField] Button _upButton;
+    public Button upButton => _upButton;
 
-    int _bet = 10;
+    [SerializeField] Button _downButton;
+    public Button downButton => _downButton;
+
+    [SerializeField] Button _maxButton;
+    public Button maxButton => _maxButton;
+
+    [SerializeField] Button _minButton;
+    public Button minButton => _minButton;
+
+    private int _bet = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        BetField.SetTextWithoutNotify("10");
+        _betField.SetTextWithoutNotify("10");
     }
 
     //based on money and bet, clamp bet to limits and enable or disable buttons. 
@@ -36,13 +44,13 @@ public class BetController : MonoBehaviour
             _bet = Mathf.Clamp(_bet, 1, Constants.MAX_FREE_BET);
             canIncrease = _bet < Constants.MAX_FREE_BET;
         }
-        MaxButton.interactable = canIncrease;
-        UpButton.interactable = canIncrease;
+        _maxButton.interactable = canIncrease;
+        _upButton.interactable = canIncrease;
 
-        DownButton.interactable = _bet > 1 ? true : false;
-        MinButton.interactable = _bet > 1 ? true : false;
+        _downButton.interactable = _bet > 1 ? true : false;
+        _minButton.interactable = _bet > 1 ? true : false;
 
-        BetField.SetTextWithoutNotify(""+_bet);
+        _betField.SetTextWithoutNotify(""+_bet);
     }
 
     public void OnChangeEvent(string value)

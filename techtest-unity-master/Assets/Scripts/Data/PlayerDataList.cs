@@ -5,23 +5,24 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerDataList
 {
-    public List<PlayerData> players;
+    [SerializeField] List<PlayerData> _players;
+    public List<PlayerData> players => _players;
 
     public PlayerDataList()
     {
-        players = new List<PlayerData>();
+        _players = new List<PlayerData>();
     }
 
     public void UpdatePlayer(PlayerData player)
     {
-        if (player.userId > players.Count || player.userId<0)
+        if (player.userId > _players.Count || player.userId<0)
         {
-            player.userId = players.Count;
-            players.Add(player);
+            player.userId = _players.Count;
+            _players.Add(player);
         }
         else
         {
-            players[player.userId] = player;
+            _players[player.userId] = player;
         }
     }
 }

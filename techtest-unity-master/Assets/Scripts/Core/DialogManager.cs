@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
-    public Text dialog;
+    [SerializeField] Text _dialog;
+    public Text dialog => _dialog;
 
     public void Clear()
     {
-        dialog.text = "";
+        _dialog.text = "";
     }
 
     public void PostDialog(string line, System.Action OnDialogComplete = null)
@@ -21,7 +22,7 @@ public class DialogManager : MonoBehaviour
     IEnumerator PrintDialog(string line, System.Action OnDialogComplete = null)
     {
         for (int i = 0; i < line.Length; i++) {
-            dialog.text += line[i];
+            _dialog.text += line[i];
             yield return null;
         }
 

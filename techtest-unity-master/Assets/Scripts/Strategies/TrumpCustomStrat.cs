@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TrumpCustomStrat : IStrategy
 {
-    int _stage = 0;
-    UseableItem _favourite;
-    bool _specialTauntReady = false;
-    string _specialTaunt;
+    private int _stage = 0;
+    private UseableItem _favourite;
+    private bool _specialTauntReady = false;
+    private string _specialTaunt;
 
     public UseableItem Draw()
     {

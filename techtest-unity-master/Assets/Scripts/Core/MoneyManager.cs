@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class MoneyManager : MonoBehaviour
 {
-    public Text _money;
-    public Text _change;
-    public Animator _animator;
+    [SerializeField] Text _money;
+    [SerializeField] Text _change;
+    [SerializeField] Animator _animator;
 
     public void Initialze()
     {

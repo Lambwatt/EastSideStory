@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class OpponentFactory
 {
-    Dictionary<string, Persona> _personas;
-    HashSet<string> _pastOpponents;
+    private Dictionary<string, Persona> _personas;
+    private HashSet<string> _pastOpponents;
 
     public OpponentFactory(List<Persona> personas)
     {
         _personas = new Dictionary<string, Persona>();
         foreach(Persona p in personas)
         {
-            _personas.Add(p.GetId(), p);
+            _personas.Add(p.id, p);
         }
 
         _pastOpponents = new HashSet<string>();
@@ -24,9 +24,9 @@ public class OpponentFactory
         List<string> matches = new List<string>(_personas.Count - _pastOpponents.Count);
         foreach(Persona p in _personas.Values)
         {
-            if (p.GetMinRounds() <= roundsPlayed && !_pastOpponents.Contains(p.GetId()))
+            if (p.minRounds <= roundsPlayed && !_pastOpponents.Contains(p.id))
             {
-                matches.Add(p.GetId());
+                matches.Add(p.id);
             }
         }
 

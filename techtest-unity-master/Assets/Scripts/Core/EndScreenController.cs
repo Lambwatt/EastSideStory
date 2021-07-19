@@ -5,33 +5,32 @@ using UnityEngine.UI;
 
 public class EndScreenController : MonoBehaviour
 {
-    public Text MoneyText;
-    public Text RecordText;
+    [SerializeField] Text _moneyText;
+    [SerializeField] Text _recordText;
 
-    public Button ReplayButton;
-    public Button QuitButton;
+    [SerializeField] Button _replayButton;
+    [SerializeField] Button _quitButton;
 
-    public JudgementManager Judgement;
-
-    int _money;
-    
-    LinkedListNode<GameUpdate> _iterator;
+    [SerializeField] JudgementManager _judgement;
 
     public delegate void OnReplayAction();
     public event OnReplayAction OnReplay;
+
+    private int _money;    
+    private LinkedListNode<GameUpdate> _iterator;
 
     void OnEnable()
     {
         _iterator = SessionData.Instance.Updates.First;
         _money = SessionData.Instance.InitialCoins;
 
-        Judgement.Reset();
+        _judgement.Reset();
 
-        RecordText.text = "";
-        MoneyText.text = "$" + _money;
+        _recordText.text = "";
+        _moneyText.text = "$" + _money;
 
-        ReplayButton.interactable = false;
-        QuitButton.interactable = false;
+        _replayButton.interactable = false;
+        _quitButton.interactable = false;
 
         StartCoroutine(ShowResults());
     }
@@ -44,18 +43,18 @@ public class EndScreenController : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             GameUpdate currentUpdate = _iterator.Value;
             _money += currentUpdate.coinsAmountChange;
-            MoneyText.text = "$" + _money;
+            _moneyText.text = "$" + _money;
 
             switch (currentUpdate.drawResult)
             {
                 case Result.Win:
-                    RecordText.text += "W";
+                    _recordText.text += "W";
                     break;
                 case Result.Lose:
-                    RecordText.text += "L";
+                    _recordText.text += "L";
                     break;
                 case Result.Draw:
-                    RecordText.text += "T";
+                    _recordText.text += "T";
                     break;
             }
             
@@ -71,9 +70,9 @@ public class EndScreenController : MonoBehaviour
         }
 
         //Handle fancy stuff at the end
-        Judgement.Judge(_money);
-        ReplayButton.interactable = true;
-        QuitButton.interactable = true;
+        _judgement.Judge(_money);
+        _replayButton.interactable = true;
+        _quitButton.interactable = true;
     }
 
     public void Quit()

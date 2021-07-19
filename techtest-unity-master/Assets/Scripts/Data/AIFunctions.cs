@@ -6,18 +6,18 @@ public class AIFunctions
 {
     public static int GetLastPlayerMove()
     {
-        return (int)SessionData.Instance.Moves.LastMove; 
+        return (int)SessionData.Instance.Moves.lastMove; 
     }
 
     public static int GetWeightedGuess()
     {
         int guess = Random.Range(0, SessionData.Instance.Updates.Count);
         MoveTracker moves = SessionData.Instance.Moves;
-        if (guess < moves.Rocks)
+        if (guess < moves.rocks)
         {
             return (int)UseableItem.Rock;
         }
-        else if(guess < moves.Rocks + moves.Papers)
+        else if(guess < moves.rocks + moves.papers)
         {
             return (int)UseableItem.Paper;
         }

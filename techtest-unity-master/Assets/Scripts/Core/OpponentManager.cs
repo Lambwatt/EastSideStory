@@ -5,33 +5,31 @@ using UnityEngine.UI;
 
 public class OpponentManager : MonoBehaviour
 {
-    public Image Portrait;
-    public DialogManager Speech;
-    public Text Name;
+    [SerializeField] Image _portrait;
+    [SerializeField] DialogManager _speech;
+    [SerializeField] Text _name;
 
-    public List<Persona> Personas;
-    public Animator PortraitAnimator;
+    [SerializeField] List<Persona> _personas;
+    [SerializeField] Animator _portraitAnimator;
 
     Opponent _activeOpponent;
     OpponentFactory _factory; 
 
     public void intialize()
     {
-        _factory = new OpponentFactory(Personas); 
+        _factory = new OpponentFactory(_personas); 
     }
 
     public void ChooseFirstOpponent(System.Action OnOpponentChosen = null)
     {
-        PortraitAnimator.SetTrigger("Reset");
+        _portraitAnimator.SetTrigger("Reset");
         ChooseOpponent();
-        Speech.Clear();
+        _speech.Clear();
         PlayEnterAnimation(() =>
         {
-            Speech.PostDialog(_activeOpponent.GetIntro(), OnOpponentChosen);
+            _speech.PostDialog(_activeOpponent.Intro, OnOpponentChosen);
         });
     }
-
-    
 
     public UseableItem GetHand()
     {
@@ -42,14 +40,14 @@ public class OpponentManager : MonoBehaviour
     {
         if (_activeOpponent.isDoneAfterResult(result))
         {
-            Speech.PostDialog( _activeOpponent.GetOutro() ,()=>{
+            _speech.PostDialog( _activeOpponent.Outro, ()=>{
                 PlayExitAnimation(() => { SwapOpponents(OnOpponentSettled); });
             });
         }
         else
         {
             if (_activeOpponent.hasSpecialTaunt())
-                Speech.PostDialog(_activeOpponent.getSpecialTaunt());
+                _speech.PostDialog(_activeOpponent.getSpecialTaunt());
             else
                 Taunt(result);
 
@@ -60,16 +58,16 @@ public class OpponentManager : MonoBehaviour
     void ChooseOpponent()
     {
         _activeOpponent = _factory.ChooseOpponent();
-        Portrait.sprite = _activeOpponent.GetPortrait();       
-        Name.text = _activeOpponent.GetName();
+        _portrait.sprite = _activeOpponent.Portrait;       
+        _name.text = _activeOpponent.Name;
     }
 
     private void SwapOpponents(System.Action OnSwapComplete)
     {
         ChooseOpponent();
-        Speech.Clear();
+        _speech.Clear();
         PlayEnterAnimation(() => {
-            Speech.PostDialog(_activeOpponent.GetIntro(), () =>
+            _speech.PostDialog(_activeOpponent.Intro, () =>
             {
                 OnSwapComplete();
             });
@@ -84,20 +82,20 @@ public class OpponentManager : MonoBehaviour
             string taunt = _activeOpponent.GetTaunt(r);
             if (taunt != null && taunt.Length > 0)
             {
-                Speech.PostDialog(taunt);
+                _speech.PostDialog(taunt);
             }
         }
     }
 
     private void PlayEnterAnimation(System.Action OnAnimationComplete = null)
     {
-        PortraitAnimator.SetTrigger("In");
+        _portraitAnimator.SetTrigger("In");
         StartCoroutine(Common.WaitThenCallAction(Constants.WAIT_TIME, OnAnimationComplete));
     }
 
     private void PlayExitAnimation(System.Action OnAnimationComplete = null)
     {
-        PortraitAnimator.SetTrigger("Out");
+        _portraitAnimator.SetTrigger("Out");
         StartCoroutine(Common.WaitThenCallAction(Constants.WAIT_TIME, OnAnimationComplete));
     }
 }

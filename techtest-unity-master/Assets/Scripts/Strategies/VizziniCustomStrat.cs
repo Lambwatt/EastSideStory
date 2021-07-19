@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class VizziniCustomStrat : IStrategy
 {
-    int _stage = 0;
-    bool _specialTauntReady = false;
-    string _specialTaunt;
+    private int _stage = 0;
+    private bool _specialTauntReady = false;
+    private string _specialTaunt;
 
     public UseableItem Draw()
     {

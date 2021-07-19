@@ -5,24 +5,24 @@ using UnityEngine.UI;
 
 public class PlayerLoadController : MonoBehaviour
 {
-    public Transform ProfileList;
-    public Button LoadButton;
-    public Button StartButton;
-    public InputField Name;
+    [SerializeField] Transform _profileList;
+    [SerializeField] Button _loadButton;
+    [SerializeField] Button _startButton;
+    [SerializeField] InputField _name;
 
-    public SelectableProfile profilePrefab;
-
-    SelectableProfile _activeProfile;
-    PlayerDataList _playerList;
+    [SerializeField] SelectableProfile _profilePrefab;
 
     public delegate void OnLoadedAction(PlayerData playerData);
     public event OnLoadedAction OnLoaded;
 
+    private SelectableProfile _activeProfile;
+    private PlayerDataList _playerList;
+
     // Start is called before the first frame update
     void OnEnable()
     {
-        LoadButton.interactable = false;
-        StartButton.interactable = false;
+        _loadButton.interactable = false;
+        _startButton.interactable = false;
         if (PlayerSaveManager.HasData())
         {
             _playerList = PlayerSaveManager.GetData();
@@ -36,12 +36,12 @@ public class PlayerLoadController : MonoBehaviour
 
     public void OnFieldPopulated(string contents)
     {
-        StartButton.interactable = contents.Length > 0;
+        _startButton.interactable = contents.Length > 0;
     }
 
     public void CreateNewPlayer()
     {
-        OnLoaded(new PlayerData(Name.text));
+        OnLoaded(new PlayerData(_name.text));
         Close();
     }
 
@@ -50,14 +50,14 @@ public class PlayerLoadController : MonoBehaviour
         SelectableProfile entry;
         foreach (PlayerData player in _playerList.players)
         {
-            entry = Instantiate(profilePrefab);
-            entry.transform.SetParent(ProfileList);
+            entry = Instantiate(_profilePrefab);
+            entry.transform.SetParent(_profileList);
             entry.transform.position = new Vector3(0, 0, 0);
             entry.transform.localScale = new Vector3(1, 1, 1);
 
             entry.Initialize(player, OnClickProfile);
         }
-        ProfileList.GetComponent<RectTransform>().sizeDelta = new Vector2(ProfileList.GetComponent<RectTransform>().sizeDelta.x, profilePrefab.GetComponent<RectTransform>().sizeDelta.y * _playerList.players.Count); //This only runs once at the start, so no sweating the getComponents
+        _profileList.GetComponent<RectTransform>().sizeDelta = new Vector2(_profileList.GetComponent<RectTransform>().sizeDelta.x, _profilePrefab.GetComponent<RectTransform>().sizeDelta.y * _playerList.players.Count); //This only runs once at the start, so no sweating the getComponents
     }
 
     void OnClickProfile(SelectableProfile profile)
@@ -66,7 +66,7 @@ public class PlayerLoadController : MonoBehaviour
             _activeProfile.Deselect();
 
         _activeProfile = profile;
-        LoadButton.interactable = true;
+        _loadButton.interactable = true;
     }
 
     public void Load()
@@ -83,11 +83,11 @@ public class PlayerLoadController : MonoBehaviour
 
     void CleanUpData()
     {
-        Name.SetTextWithoutNotify("");
-        for(int i = ProfileList.childCount-1; i>=0; i--)
+        _name.SetTextWithoutNotify("");
+        for(int i = _profileList.childCount-1; i>=0; i--)
         {
-            Destroy(ProfileList.GetChild(i).gameObject);
+            Destroy(_profileList.GetChild(i).gameObject);
         }
-        ProfileList.DetachChildren();
+        _profileList.DetachChildren();
     }
 }

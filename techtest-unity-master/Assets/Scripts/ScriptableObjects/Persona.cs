@@ -6,45 +6,27 @@ using UnityEngine;
 public class Persona : ScriptableObject
 {
     //The underscores here are inconsistent, but the data will be lost if they are renamed.
-    public string _id;
-    public int _minRounds;
-    public Sprite _portrait;
-    public string _name;
-    public string _intro;
-    public string _outro;
-    public string[] _winTaunts;
-    public string[] _loseTaunts;
-    public string[] _tieTaunts;
+    [SerializeField] string _id;
+    public string id => _id;
 
-    public int GetMinRounds()
-    {
-        return _minRounds;
-    }
+    [SerializeField] int _minRounds;
+    public int minRounds => _minRounds;
 
-    public string GetId()
-    {
-        return _id;
-    }
+    [SerializeField] Sprite _portrait;
+    public Sprite portrait => _portrait;
 
-    public Sprite GetPortrait()
-    {
-        return _portrait;
-    }
+    [SerializeField] string _name;
+    public string name => _name;
 
-    public string GetName()
-    {
-        return _name;
-    }
+    [SerializeField] string _intro;
+    public string intro => _intro;
 
-    public string GetIntro()
-    {
-        return _intro;
-    }
+    [SerializeField] string _outro;
+    public string outro => _outro;
 
-    public string GetOutro()
-    {
-        return _outro;
-    }
+    [SerializeField] string[] _winTaunts;
+    [SerializeField] string[] _loseTaunts;
+    [SerializeField] string[] _tieTaunts;
 
     public string GetTaunt(Result result)
     {

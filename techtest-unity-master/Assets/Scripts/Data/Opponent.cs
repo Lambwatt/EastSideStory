@@ -5,8 +5,13 @@ using UnityEngine;
 //Bundles th active persona with the active strategy
 public class Opponent
 {
-    IStrategy _strategy;
-    Persona _persona;
+    public Sprite Portrait => _persona.portrait;
+    public string Name => _persona.name;
+    public string Intro => _persona.intro;
+    public string Outro => _persona.outro;
+
+    private IStrategy _strategy;
+    private Persona _persona;
 
     public Opponent(IStrategy strategy, Persona persona)
     {
@@ -32,26 +37,6 @@ public class Opponent
     public bool isDoneAfterResult(Result result)
     {
         return _strategy.IsDoneAfterResult(result);
-    }
-
-    public Sprite GetPortrait()
-    {
-        return _persona.GetPortrait();
-    }
-
-    public string GetName()
-    {
-        return _persona.GetName();
-    }
-
-    public string GetIntro()
-    {
-        return _persona.GetIntro();
-    }
-
-    public string GetOutro()
-    {
-        return _persona.GetOutro();
     }
 
     public string GetTaunt(Result result)

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RandomFromSubset : IStrategy
 {
-    UseableItem[] _outcomes;
-    int _wins = 2;
+    private UseableItem[] _outcomes;
+    private int _wins = 2;
 
     public RandomFromSubset(UseableItem[] subset, int wins = 2)
     {
