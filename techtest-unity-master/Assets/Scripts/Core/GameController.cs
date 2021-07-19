@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
     #region -- Startup -- 
     void Awake()
 	{
-        _nameLabel = transform.Find ("Canvas/Name").GetComponent<Text>();
+		_nameLabel = transform.Find ("Canvas/Name").GetComponent<Text>();
 	}
 
 	void Start()
